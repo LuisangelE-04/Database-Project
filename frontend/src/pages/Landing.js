@@ -1,10 +1,12 @@
 import React from 'react';
+import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import '../css/Landing.css';
 
 const LandingPage = () => {
   return (
     <div className="landing-container">
+      <NavBar />
       <header className="landing-header">
         <h1>Welcome to PostOffice</h1>
         <p>Your reliable courier service</p>
