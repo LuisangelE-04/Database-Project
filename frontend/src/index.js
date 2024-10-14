@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Landing from './pages/Landing';
 import Register from './pages/Register';
+import Login from './pages/Login';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
