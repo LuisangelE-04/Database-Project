@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import '../css/Landing.css';
 
 const LandingPage = () => {
@@ -23,10 +24,7 @@ const LandingPage = () => {
           <p>Track your shipments in real-time.</p>
         </div>
       </section>
-      <footer className="landing-footer">
-        <p>Contact us: support@postoffice.com</p>
-        <p>&copy; 2024 PostOffice. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 };
