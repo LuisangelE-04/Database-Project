@@ -1,0 +1,32 @@
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer nav ul li {
+  margin: 0 15px;
+}
+
+.footer nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer nav ul li a:hover {
+  color: #ddd;
+}
+
+.footer-content {
+  margin-top: 10px;
+}
