@@ -12,8 +12,9 @@ const Footer = () => {
               <nav>
                 <ul>
                   <li><a href="#">Tracking</a></li>
-                  <li><a href="#">Shipment</a></li>
+                  <li><a href="#">Services</a></li>
                   <li><a href="#">About</a></li>
+                  <li><a href="#">Contact</a></li>
                 </ul>
               </nav>
             </div>
