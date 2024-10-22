@@ -4,13 +4,13 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
 const EmployeeLogin = () => {
-  const [employeeId, setEmployeeId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
     // Add login logic here
-    console.log('Employee ID:', employeeId);
+    console.log('Email:', email);
     console.log('Password:', password);
   };
 
@@ -21,12 +21,12 @@ const EmployeeLogin = () => {
       <h2>Employee Login</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label htmlFor="employeeId">Employee ID</label>
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
-            id="employeeId"
-            value={employeeId}
-            onChange={(e) => setEmployeeId(e.target.value)}
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

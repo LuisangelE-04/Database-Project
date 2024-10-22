@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="footer-titles">This Site</span>
               <nav>
                 <ul>
-                  <li><a href="#">Tracking</a></li>
+                  <li><a href="/tracking">Tracking</a></li>
                   <li><a href="#">Services</a></li>
                   <li><a href="#">About</a></li>
                   <li><a href="#">Contact</a></li>
@@ -26,7 +26,7 @@ const Footer = () => {
               <nav>
                 <ul>
                   <li><a href="#">Post Office Store</a></li>
-                  <li><a href="#">Employee Login</a></li>
+                  <li><a href="employeelogin">Employee Login</a></li>
                 </ul>
               </nav>
             </div>

@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 const EmployeeRegister = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
+    dob: '',
     email: '',
+    phone: '',
     position: '',
-    department: '',
+    password: '',
+    branchID: '',
+    managerID: '',
   });
 
   const handleChange = (e) => {
@@ -27,11 +32,31 @@ const EmployeeRegister = () => {
       <h2>Employee Registration</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Name:</label>
+          <label>First Name:</label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Date of Birth:</label>
+          <input
+            type="date"
+            name="dob"
+            value={formData.dob}
             onChange={handleChange}
             required
           />
@@ -47,6 +72,16 @@ const EmployeeRegister = () => {
           />
         </div>
         <div>
+          <label>Phone:</label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
           <label>Position:</label>
           <input
             type="text"
@@ -57,11 +92,31 @@ const EmployeeRegister = () => {
           />
         </div>
         <div>
-          <label>Department:</label>
+          <label>Password:</label>
           <input
-            type="text"
-            name="department"
-            value={formData.department}
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Branch ID:</label>
+          <input
+            type="number"
+            name="branchID"
+            value={formData.branchID}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Manager ID:</label>
+          <input
+            type="number"
+            name="managerID"
+            value={formData.managerID}
             onChange={handleChange}
             required
           />
