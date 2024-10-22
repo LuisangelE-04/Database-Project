@@ -4,6 +4,7 @@ import NavBar from './components/NavBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Landing from './pages/Landing';
+import Tracking from './pages/Tracking';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/tracking" element={<Tracking />} />
     </Routes>
   );
 }

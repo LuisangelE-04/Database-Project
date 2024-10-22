@@ -1,6 +1,11 @@
 import React from 'react';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
+
 const Tracking = () => {
   return (
+    <>
+    <NavBar />
     <div>
       <h1>Track Your Package</h1>
       <form>
@@ -9,6 +14,8 @@ const Tracking = () => {
         <button type="submit">Track</button>
       </form>
     </div>
+    <Footer />
+    </>
   );
 };
 

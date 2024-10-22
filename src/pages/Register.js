@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "../css/Register.css"
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +27,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <NavBar />
     <div className="register-container">
       <h2>Register</h2>
       <div className="form-wrapper">
@@ -88,6 +92,8 @@ const Register = () => {
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

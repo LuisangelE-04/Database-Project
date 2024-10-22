@@ -39,3 +39,10 @@ li:hover {
   color: #ddd;
   cursor: pointer;
 }
+
+.nav-link {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
