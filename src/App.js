@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Tracking from './pages/Tracking';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeRegister from './pages/EmployeeRegister';
+import EmployeeDashboard from "./pages/EmployeeDashboard";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/tracking" element={<Tracking />} />
       <Route path="/employeelogin" element={<EmployeeLogin />} />
       <Route path="/employeeregister" element={<EmployeeRegister />} />
+      <Route path="/employeedashboard" element={<EmployeeDashboard />} />
     </Routes>
   );
 }
