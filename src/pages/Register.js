@@ -7,9 +7,13 @@ const Register = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
+    phoneNumber: '',
     password: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: '',
   });
 
   const handleChange = (e) => {
@@ -28,10 +32,9 @@ const Register = () => {
 
   return (
     <>
-    <NavBar />
-    <div className="register-container">
-      <h2>Register</h2>
-      <div className="form-wrapper">
+      <NavBar />
+      <div className="register-container">
+        <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
@@ -56,23 +59,23 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phoneNumber">Phone Number:</label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleChange}
               required
             />
@@ -88,11 +91,54 @@ const Register = () => {
               required
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="street">Street:</label>
+            <input
+              type="text"
+              id="street"
+              name="street"
+              value={formData.street}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="city">City:</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="state">State:</label>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="zip">Zip Code:</label>
+            <input
+              type="text"
+              id="zip"
+              name="zip"
+              value={formData.zip}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <button type="submit">Register</button>
         </form>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };
