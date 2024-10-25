@@ -1,18 +1,16 @@
 .dashboard-container {
-  padding: 0 50px;
+  padding: 20px;
 }
 
 .dashboard-grid {
   display: grid;
-  grid-template-rows: repeat(6, 100px);
-  grid-template-columns: repeat(12, auto);
-  /*outline: solid 3px black;
-  border-radius: 15px;*/
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.item-1 {
-  grid-row-start: 1;
-  grid-row-end: 3;
-  grid-column-start: 5;
-  grid-column-end: 9;
+.item-1, .item-2 {
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
 }
