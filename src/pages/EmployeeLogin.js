@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Login.css';
+import { useNavigate } from 'react-router-dom';
+import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -7,11 +9,27 @@ const EmployeeLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+
+    try {
+      const payload = {
+        payload: {
+          "email": email,
+          "password": password,
+        }
+      };
+
+      const response = await createENDPOINT(ENDPOINTS.AUTH.EMPLOYEE.LOGIN).post(payload);
+      alert("Login Successful");
+      navigate('/employeedashboard');
+
+    } catch (error) {
+      alert("Error: " + error.message);
+      return;
+    }
   };
 
   return (

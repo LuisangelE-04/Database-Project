@@ -1,26 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+
+    try {
+      const payload = {
+        payload: {
+          "email": email,
+          "password": password,
+        }
+      };
+
+      const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.LOGIN).post(payload);
+      alert("Login Successful");
+      navigate('/dashboard');
+    } catch (error) {
+      alert("Error: " + error.message);
+      return;
+    }
   };
 
   return (
@@ -35,8 +43,7 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -46,8 +53,7 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>

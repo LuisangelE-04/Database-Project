@@ -14,7 +14,7 @@ const Register = () => {
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [zip, setZip] = useState('');
+  const [zipcode, setZip] = useState('');
 
   const [signupSuccess, setSignupSuccess] = useState(false);
   const navigate = useNavigate();
@@ -24,15 +24,17 @@ const Register = () => {
     
     try {
       const payload = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-        "phoneNumber": phoneNumber,
-        "password": password,
-        "street": street,
-        "city": city,
-        "state": state,
-        "zip": zip
+        payload: {
+          "firstName": firstName,
+          "lastName": lastName,
+          "email": email,
+          "phoneNumber": phoneNumber,
+          "password": password,
+          "street": street,
+          "city": city,
+          "state": state,
+          "zipcode": zipcode
+        }
       };
       
       const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.REGISTER).post(payload);
@@ -138,7 +140,7 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="zip">Zip Code:</label>
+            <label htmlFor="zipcode">Zip Code:</label>
             <input
               type="text"
               id="zip"

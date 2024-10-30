@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import '../css/Tracking.css'; // Import the CSS file
+import '../css/Tracking.css';
+import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
 
 const Tracking = () => {
+  const [packageID, setPackageID] = useState('');
+  const [status, setStatus] = useState('');
+
+  const navigate = useNavigate();
+
+  
   return (
     <>
       <NavBar />
