@@ -1,40 +1,54 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../css/Register.css"
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    password: '',
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
+    
+    try {
+      const payload = {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "phoneNumber": phoneNumber,
+        "password": password,
+        "street": street,
+        "city": city,
+        "state": state,
+        "zip": zip
+      };
+      
+      const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.REGISTER).post(payload);
+      alert("Account Created Successfully");
+      navigate('/login');
+
+    } catch (error) {
+      alert("Error: " + error.message);
+      return;
+    }
   };
 
   return (
     <>
       <NavBar />
       <div className="register-container">
-        <h2>Register</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
@@ -42,9 +56,9 @@ const Register = () => {
               type="text"
               id="firstName"
               name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
+              onChange={(e) => setFirstName(e.target.value)}
               required
+              placeholder="John"
             />
           </div>
           <div className="form-group">
@@ -53,9 +67,9 @@ const Register = () => {
               type="text"
               id="lastName"
               name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
+              onChange={(e) => setLastName(e.target.value)}
               required
+              placeholder="Doe"
             />
           </div>
           <div className="form-group">
@@ -64,20 +78,20 @@ const Register = () => {
               type="email"
               id="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              placeholder="john.doe@example.com"
             />
           </div>
           <div className="form-group">
             <label htmlFor="phoneNumber">Phone Number:</label>
             <input
-              type="tel"
+              type="text"
               id="phoneNumber"
               name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               required
+              placeholder="123-456-7890"
             />
           </div>
           <div className="form-group">
@@ -86,8 +100,7 @@ const Register = () => {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -97,9 +110,9 @@ const Register = () => {
               type="text"
               id="street"
               name="street"
-              value={formData.street}
-              onChange={handleChange}
+              onChange={(e) => setStreet(e.target.value)}
               required
+              placeholder="123 Main St"
             />
           </div>
           <div className="form-group">
@@ -108,9 +121,9 @@ const Register = () => {
               type="text"
               id="city"
               name="city"
-              value={formData.city}
-              onChange={handleChange}
+              onChange={(e) => setCity(e.target.value)}
               required
+              placeholder="Houston"
             />
           </div>
           <div className="form-group">
@@ -119,9 +132,9 @@ const Register = () => {
               type="text"
               id="state"
               name="state"
-              value={formData.state}
-              onChange={handleChange}
+              onChange={(e) => setState(e.target.value)}
               required
+              placeholder="TX"
             />
           </div>
           <div className="form-group">
@@ -130,9 +143,9 @@ const Register = () => {
               type="text"
               id="zip"
               name="zip"
-              value={formData.zip}
-              onChange={handleChange}
+              onChange={(e) => setZip(e.target.value)}
               required
+              placeholder="77002"
             />
           </div>
           <button type="submit">Register</button>
