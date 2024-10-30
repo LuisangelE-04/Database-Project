@@ -6,8 +6,8 @@ import '../css/Tracking.css';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
 
 const Tracking = () => {
-  const [packageID, setPackageID] = useState('');
-  const [status, setStatus] = useState('');
+  //const [packageID, setPackageID] = useState('');
+  //const [status, setStatus] = useState('');
 
   const navigate = useNavigate();
 
