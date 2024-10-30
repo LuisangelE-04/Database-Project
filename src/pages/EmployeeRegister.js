@@ -26,13 +26,13 @@ const EmployeeRegister = () => {
         payload: {
           "firstName": firstName,
           "lastName": lastName,
-          "dob": dob,
+          "DOB": dob,
           "email": email,
           "phoneNumber": phoneNumber,
           "position": position,
           "password": password,
-          "branchID": branchID,
-          "managerID": managerID
+          "branchId": branchID,
+          "managerId": managerID || null
         }
       };
 
@@ -40,7 +40,7 @@ const EmployeeRegister = () => {
       alert("Account Created Successfully");
       navigate('/employeedashboard');
     } catch (error) {
-      alert("Error: " + error.message);
+      alert("Error: " + error);
       return;
     }
   };
@@ -129,7 +129,6 @@ const EmployeeRegister = () => {
               type="text"
               value={managerID}
               onChange={(e) => setManagerID(e.target.value)}
-              required
             />
           </div>
           <button type="submit">Register</button>

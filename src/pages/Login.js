@@ -23,6 +23,14 @@ const Login = () => {
       };
 
       const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.LOGIN).post(payload);
+      
+      if (!response || response.status !== 200) {
+        throw new Error(response.error);
+      }
+
+      const accessToken = response.data;
+      localStorage.setItem("accessToken", accessToken);
+      
       alert("Login Successful");
       navigate('/dashboard');
     } catch (error) {
