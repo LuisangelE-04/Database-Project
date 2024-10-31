@@ -5,11 +5,12 @@ import '../css/Landing.css';
 
 const LandingPage = () => {
   return (
+    <>
+    <NavBar />
     <div className="landing-container">
-      <NavBar />
       <header className="landing-header">
-        <h1>Welcome to PostOffice</h1>
-        <p>Your reliable courier service</p>
+        <h1>Welcome to ShipIt!</h1>
+        <p>Your Reliable Post Office Service</p>
       </header>
       <section className="landing-services">
         <h2>Our Services</h2>
@@ -26,8 +27,9 @@ const LandingPage = () => {
           <p>Track your shipments in real-time.</p>
         </div>
       </section>
-      <Footer />
     </div>
+    <Footer />
+    </>
   );
 };
 

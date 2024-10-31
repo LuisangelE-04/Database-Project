@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 import '../css/Login.css';
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useNavigate } from 'react-router-dom';
+import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const ManagerLogin = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
@@ -22,8 +22,7 @@ const Login = () => {
         }
       };
 
-      const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.LOGIN).post(payload);
-      
+      const response = await createENDPOINT(ENDPOINTS.AUTH.MANAGER.LOGIN).post(payload);
       if (!response || response.status !== 200) {
         throw new Error(response.error);
       }
@@ -32,36 +31,36 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       
       alert("Login Successful");
-      navigate('/dashboard');
+      navigate('/managerdashboard');
+
     } catch (error) {
       alert("Error: " + error.message);
-      return;
     }
   };
 
   return (
     <>
     <NavBar />
-    <div className="login-container">
-      <h2>Login</h2>
-      <p>Log in with Customer credentials</p>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container manager-login">
+      <h2>Admin Login</h2>
+      <p>Log in with admin credentials</p>
+      <form onSubmit={handleLogin}>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            name="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            name="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -74,4 +73,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ManagerLogin;

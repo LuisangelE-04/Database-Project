@@ -1,0 +1,22 @@
+.landing-container {
+    text-align: center;
+    height: 80vh;
+  }
+  
+  .landing-header {
+    margin-bottom: 30px;
+  }
+  
+  .landing-services {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .service {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 30%;
+  }
+  

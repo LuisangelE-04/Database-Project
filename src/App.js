@@ -8,7 +8,8 @@ import Tracking from './pages/Tracking';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeRegister from './pages/EmployeeRegister';
 import EmployeeDashboard from "./pages/EmployeeDashboard";
-
+import AdminLogin from './pages/AdminLogin';
+import CustomerDashboard from './pages/CustomerDashboard';
 function App() {
   return (
     <Routes>
@@ -16,9 +17,11 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/tracking" element={<Tracking />} />
-      <Route path="/employeelogin" element={<EmployeeLogin />} />
-      <Route path="/employeeregister" element={<EmployeeRegister />} />
-      <Route path="/employeedashboard" element={<EmployeeDashboard />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/employee/login" element={<EmployeeLogin />} />
+      <Route path="/employee/register" element={<EmployeeRegister />} />
+      <Route path="/employee/dashboard" element={<EmployeeDashboard />} />
+      <Route path="/customer/dashboard" element={<CustomerDashboard />} />
     </Routes>
   );
 }
