@@ -10,6 +10,9 @@ import EmployeeRegister from './pages/EmployeeRegister';
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import AdminLogin from './pages/AdminLogin';
 import CustomerDashboard from './pages/CustomerDashboard';
+import Contact from './pages/Contact';
+import About from './pages/About';
+import Services from './pages/Services';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
       <Route path="/employee-register" element={<EmployeeRegister />} />
       <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
       <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/services" element={<Services />} />
     </Routes>
   );
 }
