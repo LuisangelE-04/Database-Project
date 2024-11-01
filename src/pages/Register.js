@@ -37,6 +37,7 @@ const Register = () => {
         }
       };
       
+      
       const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.REGISTER).post(payload);
       alert("Account Created Successfully");
       navigate('/login');
@@ -61,6 +62,7 @@ const Register = () => {
               onChange={(e) => setFirstName(e.target.value)}
               required
               placeholder="John"
+              autoComplete="given-name"
             />
           </div>
           <div className="form-group">
@@ -72,6 +74,7 @@ const Register = () => {
               onChange={(e) => setLastName(e.target.value)}
               required
               placeholder="Doe"
+              autoComplete="family-name"
             />
           </div>
           <div className="form-group">
@@ -83,6 +86,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="john.doe@example.com"
+              autoComplete="email"
             />
           </div>
           <div className="form-group">
@@ -94,6 +98,7 @@ const Register = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
               required
               placeholder="123-456-7890"
+              autoComplete="tel"
             />
           </div>
           <div className="form-group">
@@ -104,6 +109,7 @@ const Register = () => {
               name="password"
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
           </div>
           <div className="form-group">
@@ -115,6 +121,7 @@ const Register = () => {
               onChange={(e) => setStreet(e.target.value)}
               required
               placeholder="123 Main St"
+              autoComplete="street-address"
             />
           </div>
           <div className="form-group">
@@ -126,6 +133,7 @@ const Register = () => {
               onChange={(e) => setCity(e.target.value)}
               required
               placeholder="Houston"
+              autoComplete="address-level2"
             />
           </div>
           <div className="form-group">
@@ -137,17 +145,19 @@ const Register = () => {
               onChange={(e) => setState(e.target.value)}
               required
               placeholder="TX"
+              autoComplete="address-level1"
             />
           </div>
           <div className="form-group">
             <label htmlFor="zipcode">Zip Code:</label>
             <input
               type="text"
-              id="zip"
-              name="zip"
+              id="zipcode"
+              name="zipcode"
               onChange={(e) => setZip(e.target.value)}
               required
               placeholder="77002"
+              autoComplete="postal-code"
             />
           </div>
           <button type="submit">Register</button>

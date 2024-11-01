@@ -13,9 +13,9 @@ const Footer = () => {
               <nav>
                 <ul>
                   <li><a href="/tracking">Tracking</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <li><Link to="/services" className='nav-link'>Services</Link></li>
+                  <li><Link to="/about" className='nav-link'>About</Link></li>
+                  <li><Link to="/contact" className='nav-link'>Contact</Link></li>
                 </ul>
               </nav>
             </div>

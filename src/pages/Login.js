@@ -32,7 +32,7 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       
       alert("Login Successful");
-      navigate('/dashboard');
+      navigate('/customer-dashboard');
     } catch (error) {
       alert("Error: " + error.message);
       return;

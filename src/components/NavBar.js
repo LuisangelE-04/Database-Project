@@ -11,9 +11,9 @@ const NavBar = () => {
         </div>
         <div>
           <li><Link to="/tracking" className='nav-link'>Tracking</Link></li>
-          <li><Link to="/" className='nav-link'>Services</Link></li>
-          <li><Link to="/" className='nav-link'>About</Link></li>
-          <li><Link to="/" className='nav-link'>Contact</Link></li>
+          <li><Link to="/services" className='nav-link'>Services</Link></li>
+          <li><Link to="/about" className='nav-link'>About</Link></li>
+          <li><Link to="/contact" className='nav-link'>Contact</Link></li>
         </div>
         <div>
           {/* <li><Link to="/adminlogin" className='nav-link'> Admin Login</Link></li> */}
