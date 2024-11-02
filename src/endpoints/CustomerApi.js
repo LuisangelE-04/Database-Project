@@ -13,14 +13,28 @@ export const customerRegister = async (userData) => {
 
 // Function to login a customer
 export const customerLogin = async (credentials) => {
-  const response = await axios.post(customerLoginEndpoint.fetch(), credentials);
-  return response.data;
+  try {
+    const response = await axios.post(customerLoginEndpoint.fetch(), credentials);
+    
+    // Check if the response contains a token
+    if (response.data && response.data.token) {
+      return response.data; // Return the full response including the token
+    } else {
+      throw new Error("Login failed: No token received");
+    }
+  } catch (error) {
+
+    console.error("Login error:", error);
+    throw error; 
+  }
 };
 
 // Function to fetch customer data
 export const getCustomerData = async (token) => {
-  const response = await axios.get(customerProfileEndpoint.fetch(), {
+  const url = await customerProfileEndpoint.fetch(); 
+  const response = await axios.get(url, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
 };
+
