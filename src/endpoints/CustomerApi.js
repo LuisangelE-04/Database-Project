@@ -1,4 +1,3 @@
-// src/endpoints/CustomerApi.js
 import axios from 'axios';
 import { createENDPOINT, ENDPOINTS } from './Endpoints';
 
@@ -25,5 +24,3 @@ export const getCustomerData = async (token) => {
   });
   return response.data;
 };
-
-// Other exports as needed...

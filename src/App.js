@@ -15,24 +15,22 @@ import Services from './pages/Services';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/tracking" element={<Tracking />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/employee-login" element={<EmployeeLogin />} />
-        <Route path="/employee-register" element={<EmployeeRegister />} />
-        
-        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
-        
-        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/tracking" element={<Tracking />} />
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/employee-login" element={<EmployeeLogin />} />
+      <Route path="/employee-register" element={<EmployeeRegister />} />
+      
+      <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+      
+      <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/services" element={<Services />} />
+    </Routes>
   );
 }
 
