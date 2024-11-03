@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from "./endpoints/AuthContext";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Landing from './pages/Landing';
@@ -15,20 +16,22 @@ import Services from './pages/Services';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/tracking" element={<Tracking />} />
-      <Route path="/admin-login" element={<AdminLogin />} />
-      <Route path="/employee-login" element={<EmployeeLogin />} />
-      <Route path="/employee-register" element={<EmployeeRegister />} />
-      <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
-      <Route path="/customer-dashboard" element={<CustomerDashboard />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/services" element={<Services />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/tracking" element={<Tracking />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/employee-login" element={<EmployeeLogin />} />
+        <Route path="/employee-register" element={<EmployeeRegister />} />
+        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

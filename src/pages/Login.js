@@ -4,12 +4,14 @@ import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

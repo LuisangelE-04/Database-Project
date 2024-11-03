@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
+import { useAuth } from "../endpoints/AuthContext";
+
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -10,6 +12,7 @@ const EmployeeLogin = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
