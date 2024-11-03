@@ -8,6 +8,8 @@ export const ENDPOINTS = {
     EMPLOYEE: {
       LOGIN: 'auth/employee-login',
       REGISTER: 'auth/employee-register',
+      TRACKING_REPORT: 'employee/package-and-tracking-report',
+      EMPLOYEE_REPORT: 'employee/employees-and-logins-report'
     },
     CUSTOMER: {
       LOGIN: 'auth/customer-login',

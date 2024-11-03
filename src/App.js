@@ -13,6 +13,7 @@ import CustomerDashboard from './pages/CustomerDashboard';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
+import Reports from './pages/Reports';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/reports" element={<Reports />} />
       </Routes>
     </AuthProvider>
   );
