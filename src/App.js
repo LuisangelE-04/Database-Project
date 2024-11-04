@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
 import Reports from './pages/Reports';
+import NavBar from "./components/NavBar";
 
 function App() {
   return (

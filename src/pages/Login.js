@@ -33,8 +33,8 @@ const Login = () => {
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
       
+      window.location.href = "/customer-dashboard";
       alert("Login Successful");
-      navigate('/customer-dashboard');
     } catch (error) {
       alert("Error: " + error.message);
       return;
