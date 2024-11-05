@@ -46,7 +46,6 @@ const Login = () => {
     <NavBar />
     <div className="login-container">
       <h2>Login</h2>
-      <p>Log in with Customer credentials</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>

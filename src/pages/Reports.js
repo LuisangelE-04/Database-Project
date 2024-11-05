@@ -1,11 +1,14 @@
 import React from "react";
 import TrackingReport from "../components/TrackingReport";
+import EmployeeReport from "../components/EmployeeReport";
+
 
 const Reports = () => {
 
   return (
     <>
-      <TrackingReport />
+      <h1>Reports</h1>
+      
     </>
   );
 };

@@ -3,7 +3,6 @@ import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
 import { useAuth } from "../endpoints/AuthContext";
-
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -47,7 +46,6 @@ const EmployeeLogin = () => {
     <NavBar />
     <div className="login-container">
       <h2>Employee Login</h2>
-      <p>Log in with employee credentials</p>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email</label>

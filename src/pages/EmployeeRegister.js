@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 import "../css/Register.css"
@@ -36,11 +37,23 @@ const EmployeeRegister = () => {
         }
       };
 
-      const response = await createENDPOINT(ENDPOINTS.AUTH.EMPLOYEE.REGISTER).post(payload);
+      const accessToken = localStorage.getItem("accessToken");
+      const instance = axios.create({
+        baseURL: "https://cb30-76-142-23-132.ngrok-free.app/",
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken
+        },
+      });
+
+      //const response = await createENDPOINT(ENDPOINTS.AUTH.EMPLOYEE.REGISTER).post(payload);
+      const response = await instance.post('api/auth/employee-register', payload);
+      console.log(response.data);
       alert("Account Created Successfully");
       navigate('/employeedashboard');
     } catch (error) {
-      alert("Error: " + error);
+      alert("Error: " + error.message);
       return;
     }
   };
