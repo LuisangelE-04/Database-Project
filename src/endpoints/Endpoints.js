@@ -1,18 +1,21 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://localhost:4000/';
+export const BASE_URL = 'http://localhost:4000/api/';
 
 export const ENDPOINTS = {
   AUTH: {
     EMPLOYEE: {
       LOGIN: 'auth/employee-login',
-      REGISTER: 'auth/employee-register',
-      TRACKING_REPORT: 'employee/package-and-tracking-report',
-      EMPLOYEE_REPORT: 'employee/employees-and-logins-report'
+      REGISTER: 'auth/employee-register'
     },
     CUSTOMER: {
       LOGIN: 'auth/customer-login',
       REGISTER: 'auth/customer-register',
+    },
+    MANAGER: {
+      EMPLOYEE_REGISTER: 'auth/employee-register',
+      EMPLOYEE_REPORT: 'employee/employees-and-logins-report',
+      TRACKING_REPORT: 'employee/package-and-tracking-report'
     },
     TRACKING: {
       GET_HISTORY: 'customer/tracking-history',
@@ -23,7 +26,7 @@ export const ENDPOINTS = {
 };
 
 export const createENDPOINT = (endpoint) => {
-  let url = BASE_URL + 'api/' + endpoint + '/';
+  let url = BASE_URL + endpoint + '/';
   return {
     fetch: () => axios.get(url),
     fetchById: (id) => axios.get(url + id),
