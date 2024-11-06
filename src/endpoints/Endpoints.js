@@ -22,6 +22,11 @@ export const ENDPOINTS = {
       UPDATE_PACKAGE: 'employee/update-package',
       CREATE_PACKAGE: 'employee/create-package',
     }
+  },
+  GET: {
+    CUSTOMER: {
+      PROFILE: 'customer/profile'
+    }
   }
 };
 
