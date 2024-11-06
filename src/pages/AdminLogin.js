@@ -42,8 +42,7 @@ const ManagerLogin = () => {
     <>
     <NavBar />
     <div className="login-container manager-login">
-      <h2>Admin Login</h2>
-      <p>Log in with admin credentials</p>
+      <h2>Manager Login</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -68,6 +67,7 @@ const ManagerLogin = () => {
         <button type="submit">Login</button>
       </form>
     </div>
+    <div className="white-space"></div>
     <Footer />
     </>
   );

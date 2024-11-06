@@ -70,6 +70,7 @@ const EmployeeLogin = () => {
         <button type="submit">Login</button>
       </form>
     </div>
+    <div className="white-space"></div>
     <Footer />
     </>
   );
