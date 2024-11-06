@@ -52,6 +52,7 @@ const Register = () => {
     <>
       <NavBar />
       <div className="register-container">
+        <h2>Create New Account</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>

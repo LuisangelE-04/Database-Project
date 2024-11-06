@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/NavBar.css';
+import { useAuth } from '../endpoints/AuthContext';
 
 const NavBar = () => {
+  const { isLoggedIn } = useAuth();
+  
   return (
     <nav>
       <ul>
@@ -14,12 +17,19 @@ const NavBar = () => {
           <li><Link to="/services" className='nav-link'>Services</Link></li>
           <li><Link to="/about" className='nav-link'>About</Link></li>
           <li><Link to="/contact" className='nav-link'>Contact</Link></li>
+          <li><Link to="/reports" className='nav-link'>Reports</Link></li> {/* Add Reports link */}
         </div>
         <div>
-          {/* <li><Link to="/adminlogin" className='nav-link'> Admin Login</Link></li> */}
-          {/* <li><Link to="/employeelogin" className='nav-link'>Employee Login</Link></li> */}
-          <li><Link to="/login" className='nav-link'>Login</Link></li>
-          <li><Link to="/register" className='nav-link'>Register</Link></li>
+          {isLoggedIn ? (
+            <>
+              <li><Link to="/customer-dashboard" className='nav-link'>Dashboard</Link></li>
+            </>
+          ) : (
+            <>
+            <li><Link to="/login" className='nav-link'>Login</Link></li>
+            <li><Link to="/register" className='nav-link'>Register</Link></li>
+            </>
+          )}
         </div>
       </ul>
     </nav>
