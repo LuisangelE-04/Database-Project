@@ -17,6 +17,7 @@ const NavBar = () => {
           <li><Link to="/services" className='nav-link'>Services</Link></li>
           <li><Link to="/about" className='nav-link'>About</Link></li>
           <li><Link to="/contact" className='nav-link'>Contact</Link></li>
+          <li><Link to="/reports" className='nav-link'>Reports</Link></li> {/* Add Reports link */}
         </div>
         <div>
           {isLoggedIn ? (
