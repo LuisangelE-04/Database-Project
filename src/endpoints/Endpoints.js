@@ -20,12 +20,15 @@ export const ENDPOINTS = {
     TRACKING: {
       GET_HISTORY: 'customer/tracking-history',
       UPDATE_PACKAGE: 'employee/update-package',
-      CREATE_PACKAGE: 'employee/create-package',
+      CREATE_PACKAGE: 'employee/create-new-package',
     }
   },
   GET: {
     CUSTOMER: {
       PROFILE: 'customer/profile'
+    },
+    EMPLOYEE: {
+      PROFILE: 'employee/profile'
     }
   }
 };
