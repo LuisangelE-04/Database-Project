@@ -25,7 +25,7 @@ const Footer = () => {
               <span className="footer-titles">Other Sites</span>
               <nav>
                 <ul>
-                  <li><a href="/employee-dashboard">Post Office Store</a></li>
+                  <li><a href="/">Post Office Store</a></li>
                   <li><a href="/employee-login">Employee Login</a></li>
                   <li><a href="/admin-login">Manager Login</a></li>
                 </ul>
