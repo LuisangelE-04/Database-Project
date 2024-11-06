@@ -9,6 +9,7 @@ import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeRegister from './pages/EmployeeRegister';
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
 import CustomerDashboard from './pages/CustomerDashboard';
 import Contact from './pages/Contact';
 import About from './pages/About';
@@ -33,6 +34,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/reports" element={<Reports />} />
+        <Route path="/manager-dashboard" element={<AdminDashboard />} />
       </Routes>
     </AuthProvider>
   );
