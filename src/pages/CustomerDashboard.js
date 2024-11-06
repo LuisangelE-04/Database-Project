@@ -56,7 +56,9 @@ const CustomerDashboard = () => {
       <div>
         <h1>Welcome, {firstName}</h1>
         <div className="dashboard-container">
-
+          <div>
+            <LogOut />
+          </div>
         </div>
       </div>
       <Footer />
