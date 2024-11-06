@@ -7,7 +7,7 @@ import Landing from './pages/Landing';
 import Tracking from './pages/Tracking';
 import EmployeeLogin from './pages/EmployeeLogin';
 import EmployeeRegister from './pages/EmployeeRegister';
-import EmployeeDashboard from "./pages/EmployeeDashboard";
+import EmployeeDashboard from './pages/EmployeeDashboard';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import CustomerDashboard from './pages/CustomerDashboard';

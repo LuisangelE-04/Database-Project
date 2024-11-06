@@ -1,0 +1,69 @@
+/* CustomerDashboard.css */
+
+/* General Dashboard Styles */
+.dashboard-container {
+    padding: 20px;
+    max-width: 1200px; /* Align with landing theme */
+    margin: auto;
+    background-color: #f9f9f9; /* Background color */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  }
+  
+  /* Header Styles */
+  .dashboard-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem; /* Title size */
+    color: #333; /* Dark text color */
+    font-family: 'Arial', sans-serif; /* Clean font */
+  }
+  
+  /* Card Styles */
+  .card {
+    border: none; /* Remove default border */
+    border-radius: 8px;
+    margin-bottom: 20px; /* Space between cards */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  }
+  
+  /* Button Styles */
+  .btn {
+    border-radius: 4px; /* Match CTA button style */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Danger color */
+    border: none;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Darker shade on hover */
+  }
+  
+  /* Support Styles */
+  a {
+    color: #007bff; /* Link color */
+    text-decoration: none; /* No underline */
+  }
+  
+  a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 15px; /* Adjust padding for smaller screens */
+    }
+  
+    .dashboard-title {
+      font-size: 1.8rem; /* Smaller title size on mobile */
+    }
+  }
+  
