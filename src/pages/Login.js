@@ -35,6 +35,7 @@ const Login = () => {
       
       window.location.href = "/customer-dashboard";
       alert("Login Successful");
+      
     } catch (error) {
       alert("Error: " + error.message);
       return;

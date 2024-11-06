@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, Row, Col, Card, Button, Nav } from "react-bootstrap";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import LogOut from "../components/Logout";
