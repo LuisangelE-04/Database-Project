@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
+import '../css/PackageUpdate.css';
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -42,6 +43,7 @@ const UpdatePackage = () => {
     };
 
     return (
+        <>
         <div className="update-package-container">
             <h2>Update Package</h2>
             <form onSubmit={handleSubmit}>
@@ -108,6 +110,7 @@ const UpdatePackage = () => {
                 <button type="submit">Update Package</button>
             </form>
         </div>
+        </>
     );
 };
 

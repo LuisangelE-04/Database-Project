@@ -15,7 +15,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
 import Reports from './pages/Reports';
-import UpdatePackage from './components/UPdatePackage'
+import UpdatePackage from './components/UpdatePackage'
 
 function App() {
   return (
