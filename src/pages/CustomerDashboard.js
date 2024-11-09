@@ -1,56 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { Container, Card, Button } from "react-bootstrap";
+import axios from "axios";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
-import { getCustomerData } from '../endpoints/CustomerApi'; 
+import LogOut from "../components/Logout";
+import "../css/Dashboard.css";
+import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+
 
 const CustomerDashboard = () => {
-  const [customerData, setCustomerData] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        navigate('/login'); // Redirect to login if no token
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
+        window.location.href = "/login";
         return;
       }
 
-      try {
-        const data = await getCustomerData(token);
-        setCustomerData(data);
-      } catch (error) {
-        console.error("Error fetching customer data:", error);
-        navigate('/login'); // Redirect to login on error
-      }
-    };
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "Content-Type": "application/json",
+          authentication: accessToken
+        },
+      });
 
-    fetchData();
-  }, [navigate]);
+      const response = await instance.get(ENDPOINTS.GET.CUSTOMER.PROFILE);
 
-  if (!customerData) {
-    return <div>Loading...</div>; 
-  }
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+      setAddress(response.data.address);
+      setStreet(response.data.address.street);
+      setCity(response.data.address.city);
+      setState(response.data.address.state);
+      setZip(response.data.address.zip);
+  };
+  
+  fetchData();
+
+  }, []);
 
   return (
     <>
       <NavBar />
-      <Container>
-        <h1>Customer Dashboard</h1>
+      <div>
+        <h1>Welcome, {firstName}</h1>
         <div className="dashboard-container">
-          <Card>
-            <Card.Body>
-              <Card.Title>Welcome, {customerData.name}</Card.Title>
-              <Card.Text>Email: {customerData.email}</Card.Text>
-              <Button variant="primary">Edit Profile</Button>
-            </Card.Body>
-          </Card>
+          <div>
+            <LogOut />
+          </div>
         </div>
-      </Container>
+      </div>
       <Footer />
     </>
-  );
+  )
 };
 
 export default CustomerDashboard;
