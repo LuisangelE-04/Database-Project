@@ -4,18 +4,16 @@ import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
-import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const payload = {
         payload: {
@@ -23,21 +21,35 @@ const Login = () => {
           "password": password,
         }
       };
-
+  
       const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.LOGIN).post(payload);
-      
-      if (!response || response.status !== 200) {
+      if (!response|| response.status !== 200) {
+        console.error("Login response error:", response); 
         throw new Error(response.error);
       }
-
-      const accessToken = response.data;
+      const accessToken = response.data?.token || response.data;
       localStorage.setItem("accessToken", accessToken);
       
-      window.location.href = "/customer-dashboard";
+      if (!accessToken) {
+        console.error("Token is not available in the response.");
+        throw new Error("Login failed: Token is missing in the response.");
+      }
       alert("Login Successful");
+      navigate('/customer-dashboard');
       
     } catch (error) {
-      alert("Error: " + error.message);
+      if (error.response) {
+        // Handle the specific error based on the response code
+        if (error.response.status == 404) {
+          alert("Error: Email not found. Please register or use a valid email.");
+        } else if (error.response.status == 400) {
+          alert("Error: Incorrect password. Please try again.");
+        } else {
+          alert("Error: " + (error.response.data.message || "An unexpected error occurred. Please try again."));
+        }
+      } else {
+        alert("Error: " + error.message);
+      }
       return;
     }
   };
@@ -47,6 +59,7 @@ const Login = () => {
     <NavBar />
     <div className="login-container">
       <h2>Login</h2>
+      <p>Log in with Customer credentials</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -70,9 +83,6 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
-    </div>
-    <div className="white-space">
-      
     </div>
     <Footer />
     </>

@@ -18,7 +18,7 @@ const EmployeeDashboard = () => {
       const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
-        window.location.href = "/empolyee-login";
+        window.location.href = "/employee-login";
         return;
       }
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const BASE_URL = 'http://shipit.eastus.azurecontainer.io:4000/api/';
-
+// export const BASE_URL = 'https://27b0-76-142-23-132.ngrok-free.app/';
 export const ENDPOINTS = {
   AUTH: {
     EMPLOYEE: {
@@ -25,7 +25,8 @@ export const ENDPOINTS = {
   },
   GET: {
     CUSTOMER: {
-      PROFILE: 'customer/profile'
+      PROFILE: 'customer/profile',
+      TRACKING: 'customer/tracking-history'
     },
     EMPLOYEE: {
       PROFILE: 'employee/profile'
