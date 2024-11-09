@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
 import '../css/PackageUpdate.css';
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -12,7 +11,6 @@ const UpdatePackage = () => {
     const [shippingDate, setShippingDate] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [currentBranchID, setCurrentBranchID] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,9 +34,9 @@ const UpdatePackage = () => {
                 },
             });
 
-            const response = await instance.put('employee/update-package', payload);
+            const response = await instance.put(ENDPOINTS.AUTH.PACKAGE.UPDATE_PACKAGE, payload);
             alert("Package Updated Successfully");
-            navigate('/employee-dashboard');
+            window.location.href = "/employee-dashboard";
         } catch (error) {
             alert("Error: " + error.message);
         }
@@ -82,7 +80,6 @@ const UpdatePackage = () => {
                         name="shippingDate"
                         value={shippingDate}
                         onChange={(e) => setShippingDate(e.target.value)}
-                        required
                     />
                 </div>
 
@@ -94,7 +91,6 @@ const UpdatePackage = () => {
                         name="deliveryDate"
                         value={deliveryDate}
                         onChange={(e) => setDeliveryDate(e.target.value)}
-                        required
                     />
                 </div>
 
