@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
@@ -12,6 +13,8 @@ const EmployeeDashboard = () => {
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [postOffice, setPostOffice] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +44,10 @@ const EmployeeDashboard = () => {
     fetchData();
 
   }, []);
+
+  const handleCreatePackage = () => {
+    navigate('/create-package');
+  }
   
   return (
     <>
@@ -53,10 +60,7 @@ const EmployeeDashboard = () => {
             1
           </div>
           <div className="item-2">
-            <h1>Create New Package</h1>
-            <div className="form-container">
-              <CreatePackage />
-            </div>
+            <button onClick={handleCreatePackage}>Create Package</button>
           </div>
           <div className="item-2">
             3
