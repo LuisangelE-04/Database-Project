@@ -17,6 +17,7 @@ import Services from './pages/Services';
 import Reports from './pages/Reports';
 import NavBar from "./components/NavBar";
 import CreatePackage from "./components/CreatePackage";
+import UpdatePackage from "./pages/UpdatePackage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/reports" element={<Reports />} />
         <Route path="/manager-dashboard" element={<AdminDashboard />} />
         <Route path="/create-package" element={<CreatePackage />} />
+        <Route path="/update-package" element={<UpdatePackage />} />
       </Routes>
     </AuthProvider>
   );

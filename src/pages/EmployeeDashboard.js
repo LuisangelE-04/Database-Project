@@ -48,6 +48,10 @@ const EmployeeDashboard = () => {
   const handleCreatePackage = () => {
     navigate('/create-package');
   }
+
+  const handleUpdatePackage = () => {
+    navigate('/update-package');
+  }
   
   return (
     <>
@@ -57,7 +61,7 @@ const EmployeeDashboard = () => {
       <div className="dashboard-container">
         <div className="dashboard-grid">
           <div className="item-1">
-            1
+            <button onClick={handleUpdatePackage}>Update Package</button>
           </div>
           <div className="item-2">
             <button onClick={handleCreatePackage}>Create Package</button>
