@@ -50,7 +50,7 @@ const EmployeeDashboard = () => {
       <div className="dashboard-container">
         <div className="dashboard-grid">
           <div className="item-1">
-          <Logout />
+            1
           </div>
           <div className="item-2">
             <h1>Create New Package</h1>
@@ -62,6 +62,7 @@ const EmployeeDashboard = () => {
             3
           </div>
         </div>
+        <Logout />
       </div>
     </div>
     <Footer />
