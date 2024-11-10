@@ -25,7 +25,8 @@ export const ENDPOINTS = {
   },
   GET: {
     CUSTOMER: {
-      PROFILE: 'customer/profile'
+      PROFILE: 'customer/profile',
+      TRACKING: 'customer/tracking-history'
     },
     EMPLOYEE: {
       PROFILE: 'employee/profile'
