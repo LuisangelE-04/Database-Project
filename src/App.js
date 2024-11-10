@@ -15,7 +15,9 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
 import Reports from './pages/Reports';
-import UpdatePackage from './components/UPdatePackage'
+import UpdatePackage from './components/UPdatePackage';
+import UpdateProfile from './components/UpdateProfile.js';
+
 
 function App() {
   return (
@@ -36,6 +38,12 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/manager-dashboard" element={<AdminDashboard />} />
+        <Route path="/employee/update-package" element={<UpdatePackage />} />
+        <Route path="/employee/update-profile" element={<UpdateProfile />} />
+
+        
+
+
       </Routes>
     </AuthProvider>
   );
