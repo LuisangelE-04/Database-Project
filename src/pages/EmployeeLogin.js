@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
+import { useAuth } from "../endpoints/AuthContext";
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -10,6 +11,7 @@ const EmployeeLogin = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -29,9 +31,10 @@ const EmployeeLogin = () => {
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "employee");
       
+      window.location.href = "/employee-dashboard";
       alert("Login Successful");
-      navigate('/employeedashboard');
 
     } catch (error) {
       alert("Error: " + error.message);
@@ -44,7 +47,6 @@ const EmployeeLogin = () => {
     <NavBar />
     <div className="login-container">
       <h2>Employee Login</h2>
-      <p>Log in with employee credentials</p>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -69,6 +71,7 @@ const EmployeeLogin = () => {
         <button type="submit">Login</button>
       </form>
     </div>
+    <div className="white-space"></div>
     <Footer />
     </>
   );

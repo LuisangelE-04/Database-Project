@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
+import { useAuth } from "../endpoints/AuthContext";
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
@@ -10,6 +11,7 @@ const ManagerLogin = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,28 +24,29 @@ const ManagerLogin = () => {
         }
       };
 
-      const response = await createENDPOINT(ENDPOINTS.AUTH.MANAGER.LOGIN).post(payload);
+      const response = await createENDPOINT(ENDPOINTS.AUTH.EMPLOYEE.LOGIN).post(payload);
       if (!response || response.status !== 200) {
         throw new Error(response.error);
       }
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "manager");
       
+      window.location.href = "/manager-dashboard";
       alert("Login Successful");
-      navigate('/managerdashboard');
 
     } catch (error) {
       alert("Error: " + error.message);
+      return;
     }
   };
 
   return (
     <>
     <NavBar />
-    <div className="login-container manager-login">
-      <h2>Admin Login</h2>
-      <p>Log in with admin credentials</p>
+    <div className="login-container">
+      <h2>Manager Login</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -68,6 +71,7 @@ const ManagerLogin = () => {
         <button type="submit">Login</button>
       </form>
     </div>
+    <div className="white-space"></div>
     <Footer />
     </>
   );

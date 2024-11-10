@@ -4,12 +4,14 @@ import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,9 +32,11 @@ const Login = () => {
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "customer");
       
+      window.location.href = "/customer-dashboard";
       alert("Login Successful");
-      navigate('/customer-dashboard');
+      
     } catch (error) {
       alert("Error: " + error.message);
       return;
@@ -44,7 +48,6 @@ const Login = () => {
     <NavBar />
     <div className="login-container">
       <h2>Login</h2>
-      <p>Log in with Customer credentials</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -68,6 +71,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+    </div>
+    <div className="white-space">
+      
     </div>
     <Footer />
     </>
