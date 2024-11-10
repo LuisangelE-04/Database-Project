@@ -45,7 +45,7 @@ const Tracking = () => {
     <div>
       <NavBar />
       <div className='tracking-container'>
-        <h2>Track History</h2>
+        <h2>Package History</h2>
         <div className='tracking-table'>
           {trackingInfo.map((item, index) => (
             <div key={index} className='tracking-row'>
