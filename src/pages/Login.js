@@ -32,6 +32,7 @@ const Login = () => {
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "customer");
       
       window.location.href = "/customer-dashboard";
       alert("Login Successful");
