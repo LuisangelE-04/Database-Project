@@ -17,6 +17,8 @@ import Services from './pages/Services';
 import Reports from './pages/Reports';
 import UpdatePackage from './pages/UpdatePackage'
 import UpdateProfile from './components/UpdateProfile';
+import CreatePackage from './components/CreatePackage';  // Import CreatePackage component
+
 
 
 
@@ -41,6 +43,7 @@ function App() {
         <Route path="/manager-dashboard" element={<AdminDashboard />} />
         <Route path="/employee/update-package" element={<UpdatePackage />} />
         <Route path="/employee/update-profile" element={<UpdateProfile />} />
+        <Route path="/employee/create-package" element={<CreatePackage />} />  {/* Add CreatePackage route */}
 
         
 
