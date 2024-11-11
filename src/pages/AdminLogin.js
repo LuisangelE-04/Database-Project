@@ -31,6 +31,7 @@ const ManagerLogin = () => {
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "manager");
       
       window.location.href = "/manager-dashboard";
       alert("Login Successful");
@@ -44,7 +45,7 @@ const ManagerLogin = () => {
   return (
     <>
     <NavBar />
-    <div className="login-container manager-login">
+    <div className="login-container">
       <h2>Manager Login</h2>
       <form onSubmit={handleLogin}>
         <div className="form-group">

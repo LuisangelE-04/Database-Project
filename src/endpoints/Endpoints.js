@@ -17,7 +17,7 @@ export const ENDPOINTS = {
       EMPLOYEE_REPORT: 'employee/employees-and-logins-report',
       TRACKING_REPORT: 'employee/package-and-tracking-report'
     },
-    TRACKING: {
+    PACKAGE: {
       GET_HISTORY: 'customer/tracking-history',
       UPDATE_PACKAGE: 'employee/update-package',
       CREATE_PACKAGE: 'employee/create-new-package',

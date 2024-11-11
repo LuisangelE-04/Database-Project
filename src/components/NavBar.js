@@ -5,6 +5,7 @@ import { useAuth } from '../endpoints/AuthContext';
 
 const NavBar = () => {
   const { isLoggedIn } = useAuth();
+  const userRole = localStorage.getItem("userType");
   
   return (
     <nav>
@@ -17,12 +18,11 @@ const NavBar = () => {
           <li><Link to="/services" className='nav-link'>Services</Link></li>
           <li><Link to="/about" className='nav-link'>About</Link></li>
           <li><Link to="/contact" className='nav-link'>Contact</Link></li>
-          <li><Link to="/reports" className='nav-link'>Reports</Link></li> {/* Add Reports link */}
         </div>
         <div>
           {isLoggedIn ? (
             <>
-              <li><Link to="/customer-dashboard" className='nav-link'>Dashboard</Link></li>
+              <li><Link to={`/${userRole}-dashboard`} className='nav-link'>Dashboard</Link></li>
             </>
           ) : (
             <>

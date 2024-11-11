@@ -29,6 +29,7 @@ const Login = () => {
       }
       const accessToken = response.data?.token || response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "customer");
       
       if (!accessToken) {
         console.error("Token is not available in the response.");

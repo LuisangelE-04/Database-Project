@@ -31,6 +31,7 @@ const EmployeeLogin = () => {
 
       const accessToken = response.data;
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("userType", "employee");
       
       window.location.href = "/employee-dashboard";
       alert("Login Successful");
