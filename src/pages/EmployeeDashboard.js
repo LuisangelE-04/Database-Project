@@ -75,26 +75,22 @@ const EmployeeDashboard = () => {
         </div>
 
         <div className="dashboard-grid">
-          <div className="item-1">
-            <button onClick={() => navigate("/employee/create-package")}>
-              Create Package
-            </button>
+          <div className="grid-item" onClick={() => navigate("/employee/create-package")}>
+            <h3>Create Package</h3>
           </div>
           
-          <div className="item-2">
-            <button onClick={() => navigate("/employee/update-profile")}>
-              Update Profile
-            </button>
+          <div className="grid-item" onClick={() => navigate("/employee/update-profile")}>
+            <h3>Update Profile</h3>
           </div>
           
-          <div className="item-3">
-            <button onClick={() => navigate("/employee/update-package")}>
-              Update Package
-            </button>
+          <div className="grid-item" onClick={() => navigate("/employee/update-package")}>
+            <h3>Update Package</h3>
           </div>
         </div>
 
-        <Logout />
+        <div className="logout-container">
+          <Logout />
+        </div>
       </div>
       <Footer />
     </>
