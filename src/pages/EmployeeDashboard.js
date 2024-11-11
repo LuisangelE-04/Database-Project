@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
-import CreatePackage from "../components/CreatePackage";
 import "../css/Dashboard.css";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
@@ -77,10 +76,9 @@ const EmployeeDashboard = () => {
 
         <div className="dashboard-grid">
           <div className="item-1">
-            <h1>Create New Package</h1>
-            <div className="form-container">
-              <CreatePackage />
-            </div>
+            <button onClick={() => navigate("/employee/create-package")}>
+              Create Package
+            </button>
           </div>
           
           <div className="item-2">
