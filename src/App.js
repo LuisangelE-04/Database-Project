@@ -18,6 +18,7 @@ import Reports from './pages/Reports';
 import NavBar from "./components/NavBar";
 import CreatePackage from "./components/CreatePackage";
 import UpdatePackage from "./pages/UpdatePackage";
+import EmployeeReport from "./pages/EmployeeReport";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/manager-dashboard" element={<AdminDashboard />} />
         <Route path="/create-package" element={<CreatePackage />} />
         <Route path="/update-package" element={<UpdatePackage />} />
+        <Route path="/employee-report" element={<EmployeeReport />} />
       </Routes>
     </AuthProvider>
   );
