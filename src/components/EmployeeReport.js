@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
-
 const EmployeeReport = () => {
   const [reportData, setReportData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,11 +8,11 @@ const EmployeeReport = () => {
 
   const fetchEmployeeReport = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/${ENDPOINTS.AUTH.MANAGER.EMPLOYEE_REPORT}`);
+      const response = await axios.get(`${BASE_URL}api/${ENDPOINTS.AUTH.EMPLOYEE.EMPLOYEE_REPORT}`);
       setReportData(response.data);
+      setLoading(false);
     } catch (err) {
       setError('Failed to fetch employee report.');
-    } finally {
       setLoading(false);
     }
   };
@@ -44,10 +43,10 @@ const EmployeeReport = () => {
             <tr key={entry.activityId}>
               <td>{entry.activityId}</td>
               <td>{entry.employeeId}</td>
-              <td>{entry.employee?.name}</td>
+              <td>{entry.employee.name}</td>
               <td>{new Date(entry.loginTime).toLocaleString()}</td>
               <td>{entry.branchId}</td>
-              <td>{entry.postOffice?.name}</td>
+              <td>{entry.postOffice.name}</td>
             </tr>
           ))}
         </tbody>
