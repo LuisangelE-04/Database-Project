@@ -30,6 +30,7 @@ const CustomerDashboard = () => {
       const instance = axios.create({
         baseURL: BASE_URL,
         headers: {
+          "ngrok-skip-browser-warning": "69420",
           "Content-Type": "application/json",
           authentication: accessToken
         },
@@ -37,6 +38,8 @@ const CustomerDashboard = () => {
 
       const response = await instance.get(ENDPOINTS.GET.CUSTOMER.PROFILE);
 
+      console.log(response.data);
+      
       setFirstName(response.data.firstName);
       setLastName(response.data.lastName);
       setAddress(response.data.address);

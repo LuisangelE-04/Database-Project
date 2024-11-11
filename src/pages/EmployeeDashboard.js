@@ -28,6 +28,7 @@ const EmployeeDashboard = () => {
       const instance = axios.create({
         baseURL: BASE_URL,
         headers: {
+          "ngrok-skip-browser-warning": "69420",
           "Content-Type": "application/json",
           authentication: accessToken
         },
