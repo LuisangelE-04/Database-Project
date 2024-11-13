@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const BASE_URL = 'https://b5d6-129-7-0-8.ngrok-free.app/api/';
-//export const BASE_URL = 'http://shipit.eastus.azurecontainer.io:4000/api/';
+//export const BASE_URL = 'https://b5d6-129-7-0-8.ngrok-free.app/api/';
+export const BASE_URL = 'http://shipit.eastus.azurecontainer.io:4000/api/';
 
 export const ENDPOINTS = {
   AUTH: {

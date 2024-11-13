@@ -3,6 +3,9 @@ import axios from "axios";
 import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import PackageDropdown from "./dropdowns/PackageSize";
+import PackageStatus from "./dropdowns/PackageStatus";
+import ShipmentType from "./dropdowns/ShipmentType";
 import "../css/CreatePackage.css";
 
 const CreatePackage = () => {
@@ -185,11 +188,8 @@ const CreatePackage = () => {
             </div>
             <div className="form-group">
               <label>Dimensions:</label>
-              <input
-                type="text"
-                value={dimensions}
-                onChange={(e) => setDimensions(e.target.value)}
-                required
+              <PackageDropdown 
+              onSelect={(value) => setDimensions(value)}
               />
             </div>
             <div className="form-group">
@@ -204,21 +204,15 @@ const CreatePackage = () => {
             </div>
             <div className="form-group">
               <label>Shipping Method:</label>
-              <input
-                type="text"
-                value={shippingMethod}
-                onChange={(e) => setShippingMethod(e.target.value)}
-                required
+              <ShipmentType
+              onSelect={(value) => setShippingMethod(value)}
               />
             </div>
             <div className="form-group">
               <label>Status:</label>
-              <input
-                type="text"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                required
-              />
+              <PackageStatus 
+              onSelect={(value) => setStatus(value)}
+               />  
             </div>
             <div className="form-group">
               <label>Shipping Date:</label>
