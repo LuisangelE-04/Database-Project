@@ -2,7 +2,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
 }
@@ -11,7 +10,6 @@ body {
   display: flex;
   flex-direction: column;
   color: #333;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Ensure the main content takes up available space, allowing scrolling if necessary */
@@ -20,12 +18,12 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  overflow: auto; /* Ensure scrolling if content exceeds viewport height */
+  overflow: auto;
 }
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .quick-actions, .shipment-overview, .recent-shipments, .profile-info, .settings-menu, .support-section {
@@ -70,13 +68,12 @@ header {
   flex-wrap: wrap;
 }
 
-.shipment-overview .card {
+.recent-shipments {
   background-color: white;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
   flex: 1;
-  max-width: 300px;
   box-sizing: border-box;
 }
 
@@ -117,7 +114,7 @@ header {
 }
 
 .recent-shipments .view-all:hover {
-  transform: scale(1.05);
+  background-color: #0056b3;
 }
 
 /* Profile Info */
@@ -204,22 +201,24 @@ header {
   text-decoration: underline;
 }
 
-/* Footer */
-footer {
-  background-color: #343a40;
+.logout button:hover {
   color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: 40px;
+  background-color: #dc3545;
 }
 
-footer a {
-  color: #007bff;
+.profile-info .view-all {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
   text-decoration: none;
 }
 
-footer a:hover {
-  text-decoration: underline;
+.profile-info .view-all:hover {
+  background-color: #0056b3;
 }
 
 /* Responsive Layout */

@@ -46,54 +46,7 @@ const EmployeeReport = () => {
       <div className='report-container'>
         <h2>Employee Login Report</h2>
 
-        {reportData ? (
-          <div className='report-table'>
-            {/* Display post office information */}
-            <div className='report-row'>
-              <div className='report-column'>
-                <h3>Post Office Info</h3>
-                <p><strong>Branch Name:</strong> {reportData.postOfficeInfo?.branchName || 'N/A'}</p>
-                <p><strong>Branch ID:</strong> {reportData.postOfficeInfo?.branchId || 'N/A'}</p>
-                <p><strong>Address:</strong> {`${reportData.postOfficeInfo?.address.street || 'N/A'}, ${reportData.postOfficeInfo?.address.city || 'N/A'}, ${reportData.postOfficeInfo?.address.state || 'N/A'} ${reportData.postOfficeInfo?.address.zipcode || 'N/A'}`}</p>
-              </div>
-            </div>
-
-            {/* Table for employee data */}
-            <table className='employee-report-table'>
-              <thead>
-                <tr>
-                  <th>Employee Name</th>
-                  <th>Position</th>
-                  <th>Recent Logins</th>
-                </tr>
-              </thead>
-              <tbody>
-                {reportData.employees.map((employee, index) => (
-                  <tr key={index}>
-                    <td>{employee.employeeInfo?.name || 'N/A'}</td>
-                    <td>{employee.employeeInfo?.position || 'N/A'}</td>
-                    <td>
-                      {employee.recentLogins.length > 0 ? (
-                        employee.recentLogins.map((login, i) => (
-                          <div key={i} className='login-entry'>
-                            <p><strong>Date:</strong> {login.date}</p>
-                            <p><strong>Location:</strong> {login.location}</p>
-                          </div>
-                        ))
-                      ) : (
-                        <p>No recent logins</p>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {reportData.employees.length === 0 && <p>No employees found.</p>}
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+        
       </div>
       <Footer />
     </div>
