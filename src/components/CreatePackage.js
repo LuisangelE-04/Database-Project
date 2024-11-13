@@ -66,6 +66,7 @@ const CreatePackage = () => {
       const response = await instance.post(ENDPOINTS.AUTH.PACKAGE.CREATE_PACKAGE, payload);
       console.log(response.data);
       alert("Package Created Successfully");
+      window.location.href = "/employee-dashboard";
     } catch (error) {
       alert("Error: " + error);
       return;

@@ -4,6 +4,7 @@ import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
 import '../css/UpdatePackage.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import PackageStatus from '../components/dropdowns/PackageStatus';
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -63,13 +64,8 @@ const UpdatePackage = () => {
 
                 <div className="form-group">
                     <label htmlFor="status">Current Status</label>
-                    <input
-                        type="text"
-                        id="status"
-                        name="status"
-                        value={currentStatus}
-                        onChange={(e) => setStatus(e.target.value)}
-                        required
+                    <PackageStatus
+                    onSelect={(value) => setStatus(value)}
                     />
                 </div>
 
