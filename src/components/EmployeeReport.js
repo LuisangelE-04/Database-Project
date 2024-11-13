@@ -7,7 +7,7 @@ const EmployeeReport = () => {
   const [error, setError] = useState(null);
 
   const fetchEmployeeReport = async () => {
-    try {
+    try {   
       const response = await axios.get(`${BASE_URL}api/${ENDPOINTS.AUTH.EMPLOYEE.EMPLOYEE_REPORT}`);
       setReportData(response.data);
       setLoading(false);

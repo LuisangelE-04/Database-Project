@@ -51,7 +51,7 @@ const EmployeeRegister = () => {
       const response = await instance.post(ENDPOINTS.AUTH.MANAGER.EMPLOYEE_REGISTER, payload);
       console.log(response.data);
       alert("Account Created Successfully");
-      navigate('/employee-dashboard');
+      navigate('/manager-dashboard');
     } catch (error) {
       alert("Error: " + error.message);
       return;
