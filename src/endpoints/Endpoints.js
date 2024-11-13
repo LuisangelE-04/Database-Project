@@ -7,11 +7,12 @@ export const ENDPOINTS = {
   AUTH: {
     EMPLOYEE: {
       LOGIN: 'auth/employee-login',
-      REGISTER: 'auth/employee-register'
+      REGISTER: 'auth/employee-register',
     },
     CUSTOMER: {
       LOGIN: 'auth/customer-login',
       REGISTER: 'auth/customer-register',
+      EDIT_PROFILE: 'customer/edit-profile',
     },
     MANAGER: {
       EMPLOYEE_REGISTER: 'auth/employee-register',
