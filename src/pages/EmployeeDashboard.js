@@ -11,8 +11,11 @@ import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 const EmployeeDashboard = () => {
   const [firstName, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
   const [postOffice, setPostOffice] = useState("");
+  const [postOfficeNumber, setPostOfficeNumber] = useState("");
+  const [postOfficeEmail, setPostOfficeEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,11 +38,15 @@ const EmployeeDashboard = () => {
       });
 
       const response = await instance.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
+      console.log(response.data);
 
       setFirstName(response.data.firstName);
       setLastName(response.data.lastName);
+      setPosition(response.data.position);
       setEmail(response.data.email);
       setPostOffice(response.data.postOffice.branchName);
+      setPostOfficeNumber(response.data.postOffice.phoneNumber);
+      setPostOfficeEmail(response.data.postOffice.email);
     };
 
     fetchData();
@@ -58,7 +65,12 @@ const EmployeeDashboard = () => {
     <>
     <NavBar />
     <div>
-      <h1>Hello, {firstName}!</h1>
+      <div className="branch-info">
+        <h1>{postOffice}</h1>
+        <h3>Contact Your Post Office</h3>
+        <p><strong>Phone: </strong>{postOfficeNumber} <strong>Email: </strong>{postOfficeEmail}</p>
+      </div>
+      <h1>Hello, {firstName}! | {position}</h1>
       <div className="dashboard-container">
         <div className="dashboard-grid">
           <div className="item-1">
@@ -68,7 +80,7 @@ const EmployeeDashboard = () => {
             <button onClick={handleCreatePackage}>Create Package</button>
           </div>
           <div className="item-2">
-            3
+            <button>Edit Profile</button>
           </div>
         </div>
         <Logout />
