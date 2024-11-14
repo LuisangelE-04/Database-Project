@@ -3,7 +3,6 @@ import axios from "axios";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { add } from "resolve-url-loader/lib/position-algerbra";
 
 const EditProfile = () => {
   const [firstName, setFirstName] = useState("");

@@ -5,6 +5,10 @@ import "../css/Dashboard.css";
 import LogOut from "../components/Logout";
 
 const EmployeeDashboard = () => {
+  const handleViewReports = () => {
+    window.location.href = "/reports";
+  }
+  
   return (
     <>
     <div>
@@ -16,7 +20,7 @@ const EmployeeDashboard = () => {
             <LogOut />
           </div>
           <div className="item-2">
-            2
+            <button onClick={handleViewReports}>View Reports</button>
           </div>
           <div className="item-2">
             3
