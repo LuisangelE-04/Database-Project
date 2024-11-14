@@ -4,12 +4,13 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
 const AdminReports = () => {
+  const branchId = 1;
 
   return (
     <>
     <NavBar />
     <div className="report-container">
-      <EmployeeReport />
+      <EmployeeReport branchId={branchId} />
     </div>
     <Footer />
     </>

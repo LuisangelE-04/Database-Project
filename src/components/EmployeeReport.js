@@ -43,7 +43,7 @@ const EmployeeInfo = ({ employee }) => {
   );
 };
 
-const EmployeeReport = () => {
+const EmployeeReport = ({ branchId }) => {
   const [reportData, setReportData] = useState(null);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const EmployeeReport = () => {
           },
         });
 
-        const response = await instance.get(ENDPOINTS.AUTH.MANAGER.EMPLOYEE_REPORT);
+        const response = await instance.get(`${ENDPOINTS.AUTH.MANAGER.EMPLOYEE_REPORT}?branchId=${branchId}`);
 
         console.log('API resposne', response.data);
 
@@ -79,7 +79,7 @@ const EmployeeReport = () => {
 
     fetchLoginReport();
 
-  }, []);
+  }, [branchId]);
 
   return (
     <>
