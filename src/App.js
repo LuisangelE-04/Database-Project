@@ -19,6 +19,7 @@ import CreatePackage from "./components/CreatePackage";
 import UpdatePackage from "./pages/UpdatePackage";
 import EditCustomerProfile from "./pages/EditCustomerProfile";
 import Reports from "./pages/AdminReports"
+import EditEmployeeProfile from "./pages/EditEmployeeProfile";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/create-package" element={<CreatePackage />} />
         <Route path="/update-package" element={<UpdatePackage />} />
         <Route path="/customer-profile" element={<EditCustomerProfile />} />
+        <Route path="/employee-profile" element={<EditEmployeeProfile />} />
       </Routes>
     </AuthProvider>
   );

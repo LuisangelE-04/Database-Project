@@ -60,30 +60,57 @@ const EmployeeDashboard = () => {
   const handleUpdatePackage = () => {
     navigate('/update-package');
   }
+
+  const handleViewProfile = () => {
+    navigate('/employee-profile');
+  }
   
   return (
     <>
     <NavBar />
     <div>
       <div className="branch-info">
-        <h1>{postOffice}</h1>
-        <h3>Contact Your Post Office</h3>
-        <p><strong>Phone: </strong>{postOfficeNumber} <strong>Email: </strong>{postOfficeEmail}</p>
+        <header>
+          <h1>{postOffice}</h1>
+          <h3>Contact Your Post Office</h3>
+          <p><strong>Phone: </strong>{postOfficeNumber} <strong>Email: </strong>{postOfficeEmail}</p>
+        </header>
       </div>
-      <h1>Hello, {firstName}! | {position}</h1>
+      <header>
+        <h1>Hello, {firstName}! | {position}</h1>
+      </header>
+
       <div className="dashboard-container">
-        <div className="dashboard-grid">
-          <div className="item-1">
-            <button onClick={handleUpdatePackage}>Update Package</button>
-          </div>
-          <div className="item-2">
-            <button onClick={handleCreatePackage}>Create Package</button>
-          </div>
-          <div className="item-2">
-            <button>Edit Profile</button>
+        <div className="profile-info">
+          <header>
+            <h3>Account Information</h3>
+          </header>
+          <p><strong>Full Name: </strong>{firstName} {lastname}</p>
+          <p><strong>Position: </strong>{position}</p>
+          <p><strong>Your Email:  </strong>{email}</p>
+          <button className="view-all" onClick={handleViewProfile}>View Full Profile</button>
+        </div>
+
+        <div className="quick-actions">
+          <header>
+            <h3>Quick Actions</h3>
+          </header>
+          <div className="dashboard-grid">
+            <div className="item-1">
+              <button onClick={handleUpdatePackage}>Update Package</button>
+            </div>
+            <div className="item-2">
+              <button onClick={handleCreatePackage}>Create Package</button>
+            </div>
+            <div className="item-2">
+              <button>Edit Profile</button>
+            </div>
           </div>
         </div>
-        <Logout />
+
+        <div className="logout">
+          <Logout />
+        </div>
       </div>
     </div>
     <Footer />
