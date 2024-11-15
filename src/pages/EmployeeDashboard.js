@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
+import AddDependent from "../components/AddDependent";
+import Modal from 'react-modal';
 import "../css/Dashboard.css";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
@@ -14,8 +16,10 @@ const EmployeeDashboard = () => {
   const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
   const [postOffice, setPostOffice] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
   const [postOfficeNumber, setPostOfficeNumber] = useState("");
   const [postOfficeEmail, setPostOfficeEmail] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,6 +49,7 @@ const EmployeeDashboard = () => {
       setPosition(response.data.position);
       setEmail(response.data.email);
       setPhoneNumber(response.data.phoneNumber);
+      setEmployeeId(response.data.employeeId);
       setPostOffice(response.data.postOffice.branchName);
       setPostOfficeNumber(response.data.postOffice.phoneNumber);
       setPostOfficeEmail(response.data.postOffice.email);
@@ -65,7 +70,15 @@ const EmployeeDashboard = () => {
   const handleViewProfile = () => {
     navigate('/employee-profile');
   }
-  
+
+  const handleAddDependent = () => {
+    setModalIsOpen(true);
+  }
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  }
+
   return (
     <>
     <NavBar />
@@ -90,6 +103,7 @@ const EmployeeDashboard = () => {
           <p><strong>Position: </strong>{position}</p>
           <p><strong>Your Email:  </strong>{email}</p>
           <p><strong>Phone: </strong>{phoneNumber}</p>
+          <p><strong>Employee ID: </strong>{employeeId}</p>
           <button className="view-all" onClick={handleViewProfile}>Edit Profile</button>
         </div>
 
@@ -104,6 +118,9 @@ const EmployeeDashboard = () => {
             <div className="item-2">
               <button onClick={handleCreatePackage}>Create Package</button>
             </div>
+            <div className="item-3">
+              <button onClick={handleAddDependent}>Add Dependent</button>
+            </div>
           </div>
         </div>
 
@@ -112,6 +129,16 @@ const EmployeeDashboard = () => {
         </div>
       </div>
     </div>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModal}
+      contentLabel="Add Dependent"
+      className="modal"
+      overlayClassName="overlay"
+    >
+      <AddDependent />
+      <button onClick={closeModal}>Close</button>
+    </Modal>
     <Footer />
     </>
   );

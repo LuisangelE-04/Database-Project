@@ -3,8 +3,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL, ENDPOINTS } from "../endpoints/Endpoints";
 import "../css/AddDependent.css";
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
 
 const AddDependent = () => {
   const [employeeID, setEmployeeID] = useState('');
@@ -20,12 +18,14 @@ const AddDependent = () => {
 
     try {
       const payload = {
-        employeeId: employeeID,
-        firstName,
-        lastName,
-        relationship,
-        dateOfBirth,
-        sex,
+        payload: {
+          employeeId: employeeID,
+          firstName,
+          lastName,
+          relationship,
+          dateOfBirth,
+          sex,
+        }
       };
 
       const accessToken = localStorage.getItem("accessToken");
@@ -36,18 +36,21 @@ const AddDependent = () => {
           authentication: accessToken
         },
       });
-
-      await instance.post(ENDPOINTS.AUTH.EMPLOYEE.ADD_DEPENDENT, payload);
+      const response = await instance.post(ENDPOINTS.AUTH.EMPLOYEE.ADD_DEPENDENT, payload);
+      console.log(response.data);
       alert("Dependent Added Successfully");
       navigate('/employee-dashboard');  // Redirect to employee dashboard or any other page
     } catch (error) {
-      alert("Error: " + error.message);
+      if (error.response && error.response.status === 409) {
+        alert("A dependent with these details already exists. Please provide different details.");
+      } else {
+        alert("Error: " + error.message);
+      }
     }
   };
 
   return (
     <>
-      <NavBar />
       <div className="add-dependent-container">
         <h2>Add Dependent</h2>
         <form onSubmit={handleSubmit}>
@@ -107,7 +110,6 @@ const AddDependent = () => {
           <button type="submit">Add Dependent</button>
         </form>
       </div>
-      <Footer />
     </>
   );
 };
