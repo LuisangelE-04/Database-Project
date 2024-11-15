@@ -4,7 +4,7 @@
   import NavBar from "../components/NavBar";
   import LogOut from "../components/Logout";
   import "../css/CustomerDashboard.css";
-  import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+  import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 
   const CustomerDashboard = () => {
@@ -12,14 +12,10 @@
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [address, setAddress] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zip, setZip] = useState("");
-
-    const [activeShipments, setActiveShipments] = useState([]);
-    const [completedShipments, setCompletedShipments] = useState([]);
     const [recentShipments, setRecentShipments] = useState([]);
 
     const handleViewAllShipments = () => {
@@ -77,7 +73,6 @@
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
         setEmail(response.data.email);
-        setAddress(response.data.address);
         setStreet(response.data.address.street);
         setCity(response.data.address.city);
         setState(response.data.address.state);

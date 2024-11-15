@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -10,7 +9,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -45,9 +43,9 @@ const Login = () => {
     } catch (error) {
       if (error.response) {
         // Handle the specific error based on the response code
-        if (error.response.status == 404) {
+        if (error.response.status === 404) {
           alert("Error: Email not found. Please register or use a valid email.");
-        } else if (error.response.status == 400) {
+        } else if (error.response.status === 400) {
           alert("Error: Incorrect password. Please try again.");
         } else {
           alert("Error: " + (error.response.data.message || "An unexpected error occurred. Please try again."));

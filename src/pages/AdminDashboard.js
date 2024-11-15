@@ -8,15 +8,12 @@ import Modal from 'react-modal';
 import "../css/CustomerDashboard.css"; // Reuse the CSS from CustomerDashboard
 import "../css/ModalStyles.css"; // Import additional styles for modal
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
-import EditEmployeeProfile from "./EditEmployeeProfile";
 
 const AdminDashboard = () => {
   const [firstName, setFirstName] = useState("Admin");
   const [lastName, setLastName] = useState("User");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [recentActivities, setRecentActivities] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
@@ -67,7 +64,6 @@ const AdminDashboard = () => {
       setLastName(response.data.lastName);
       setEmail(response.data.email);
       setPhoneNumber(response.data.phoneNumber);
-      setAddress(response.data.address);
       // Uncomment and update the line below to fetch recent activities if needed
       // const response2 = await profile.get(ENDPOINTS.GET.EMPLOYEE.RECENT_ACTIVITIES);
       // setRecentActivities(response2.data);
