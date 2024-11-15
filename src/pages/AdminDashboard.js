@@ -64,7 +64,6 @@ const AdminDashboard = () => {
       setLastName(response.data.lastName);
       setEmail(response.data.email);
       setPhoneNumber(response.data.phoneNumber);
-      setAddress(response.data.address);
       console.log(response.data);
       // Uncomment and update the line below to fetch recent activities if needed
       // const response2 = await profile.get(ENDPOINTS.GET.EMPLOYEE.RECENT_ACTIVITIES);

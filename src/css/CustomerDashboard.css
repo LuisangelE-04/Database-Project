@@ -287,3 +287,32 @@ header {
     width: 100%;
   }
 }
+.delete-profile-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-profile-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.confirm-delete-btn {
+  margin-right: 10px;
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-delete-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}

@@ -3,11 +3,14 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import Modal from 'react-modal';
 import '../css/Tracking.css';
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const Tracking = () => {
   const [trackingInfo, setTrackingInfo] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [packageIdToCancel, setPackageIdToCancel] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +45,49 @@ const Tracking = () => {
     fetchTracking();
   }, [navigate]);
 
+  const openModal = (packageId) => {
+    setPackageIdToCancel(packageId);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setPackageIdToCancel(null);
+  };
+
+  const handleCancelPackage = async () => {
+    if (!packageIdToCancel) return;
+  
+    const accessToken = localStorage.getItem("accessToken");
+  
+    try {
+      const body = {
+        "packageId" : packageIdToCancel,
+      }
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken
+        },
+      });
+  
+      // Including the packageId in the delete URL
+      const response = await instance.patch(ENDPOINTS.GET.CUSTOMER.CANCEL_PACKAGE, body);
+      alert(`Package ID ${packageIdToCancel} has been cancelled.`);
+      // Remove cancelled package from the tracking list
+      setTrackingInfo(trackingInfo.filter(pkg => pkg.packageInfo.packageId !== packageIdToCancel));
+      
+      closeModal();
+    } catch (error) {
+      console.error("Error cancelling the package:", error);
+      console.log(error.message);
+      alert("Failed to cancel the package. Please try again.");
+    }
+  };
+  
+
   return (
     <div>
       <NavBar />
@@ -71,7 +117,7 @@ const Tracking = () => {
                 <p><strong>State:</strong> {item.senderAddress?.state || 'N/A'}</p>
                 <p><strong>Zipcode:</strong> {item.senderAddress?.zipcode || 'N/A'}</p>
               </div>
-              <div className='tracking-column'>
+              <div className='tracking-column tracking-actions'>
                 <h3>Tracking History</h3>
                 {item.trackingHistory.map((history, i) => (
                   <div key={i}>
@@ -80,12 +126,27 @@ const Tracking = () => {
                     <p><strong>Location:</strong> {history.location}</p>
                   </div>
                 ))}
+                <button className="cancel-package-btn" onClick={() => openModal(item.packageInfo?.packageId)}>
+                  Cancel Package
+                </button>
               </div>
             </div>
           ))}
           {trackingInfo.length === 0 && <p>No packages found.</p>}
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Cancel Package Confirmation"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Cancel Package</h2>
+        <p>Are you sure you want to cancel Package ID {packageIdToCancel}?</p>
+        <button onClick={handleCancelPackage}>Yes, Cancel Package</button>
+        <button onClick={closeModal}>No, Keep Package</button>
+      </Modal>
       <Footer />
     </div>
   );

@@ -40,3 +40,27 @@
   font-weight: 600;
   color: #000;
 }
+
+/* Cancel Package Button Styling */
+.tracking-actions .cancel-package-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #dc3545; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tracking-actions .cancel-package-btn:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Adjust the alignment for better positioning */
+.tracking-column.tracking-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
