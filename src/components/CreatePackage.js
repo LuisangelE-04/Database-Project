@@ -30,6 +30,23 @@ const CreatePackage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    /* New payload for creating a package
+    payload: {
+      "customerEmail": customerEmail,
+      "recipientStreet": recipientStreet,
+      "recipientCity": recipientCity,
+      "recipientState": recipientState,
+      "recipientZipcode": recipientZip,
+      "weight": weight,
+      "acount": amount,
+      "dimensions": dimensions,
+      "shippingMethod": shippingMethod,
+      "status": status,
+      "shippingDate": shippingDate,
+      "deliveryDate": deliveryDate
+    }
+    */
+
     try {
       const payload = {
         payload: {
@@ -79,6 +96,7 @@ const CreatePackage = () => {
       <div className="item-container">
         <h2>Enter Package Details</h2>
         <form onSubmit={handleSubmit} className="form-container">
+          {/* Remove customer details, replace with customer email only */
           <div className="form-section">
             <h3>Customer Details</h3>
             <div className="form-group">
@@ -136,6 +154,8 @@ const CreatePackage = () => {
               />
             </div>
           </div>
+          /* END OF SECTION TO REMOVE */
+          }
           <div className="form-section">
             <h3>Recipient Details</h3>
             <div className="form-group">
@@ -193,6 +213,8 @@ const CreatePackage = () => {
               onSelect={(value) => setDimensions(value)}
               />
             </div>
+
+            {/* Remove this from from, amount will be calculated in backend */
             <div className="form-group">
               <label>Amount:</label>
               <input
@@ -203,6 +225,9 @@ const CreatePackage = () => {
                 required
               />
             </div>
+            /* END OF SECTION TO REMOVE */
+            }
+
             <div className="form-group">
               <label>Shipping Method:</label>
               <ShipmentType

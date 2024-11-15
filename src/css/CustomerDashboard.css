@@ -56,10 +56,6 @@ header {
   color: #007bff;
 }
 
-.quick-actions button:hover {
-  transform: scale(1.05);
-}
-
 /* Shipment Overview */
 .shipment-overview .overview-cards {
   display: flex;

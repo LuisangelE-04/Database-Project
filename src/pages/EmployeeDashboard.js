@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
-import CreatePackage from "../components/CreatePackage";
 import "../css/Dashboard.css";
-import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const EmployeeDashboard = () => {
   const [firstName, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
   const [postOffice, setPostOffice] = useState("");
@@ -44,6 +44,7 @@ const EmployeeDashboard = () => {
       setLastName(response.data.lastName);
       setPosition(response.data.position);
       setEmail(response.data.email);
+      setPhoneNumber(response.data.phoneNumber);
       setPostOffice(response.data.postOffice.branchName);
       setPostOfficeNumber(response.data.postOffice.phoneNumber);
       setPostOfficeEmail(response.data.postOffice.email);
@@ -88,7 +89,8 @@ const EmployeeDashboard = () => {
           <p><strong>Full Name: </strong>{firstName} {lastname}</p>
           <p><strong>Position: </strong>{position}</p>
           <p><strong>Your Email:  </strong>{email}</p>
-          <button className="view-all" onClick={handleViewProfile}>View Full Profile</button>
+          <p><strong>Phone: </strong>{phoneNumber}</p>
+          <button className="view-all" onClick={handleViewProfile}>Edit Profile</button>
         </div>
 
         <div className="quick-actions">
@@ -101,9 +103,6 @@ const EmployeeDashboard = () => {
             </div>
             <div className="item-2">
               <button onClick={handleCreatePackage}>Create Package</button>
-            </div>
-            <div className="item-2">
-              <button>Edit Profile</button>
             </div>
           </div>
         </div>

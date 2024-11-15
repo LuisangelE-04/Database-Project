@@ -37,6 +37,8 @@ const UpdatePackage = () => {
             });
 
             const response = await instance.put(ENDPOINTS.AUTH.PACKAGE.UPDATE_PACKAGE, payload);
+
+            console.log(response.data);
             alert("Package Updated Successfully");
             window.location.href = "/employee-dashboard";
         } catch (error) {

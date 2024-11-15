@@ -14,7 +14,6 @@ import CustomerDashboard from './pages/CustomerDashboard';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
-import NavBar from "./components/NavBar";
 import CreatePackage from "./components/CreatePackage";
 import UpdatePackage from "./pages/UpdatePackage";
 import EditCustomerProfile from "./pages/EditCustomerProfile";
