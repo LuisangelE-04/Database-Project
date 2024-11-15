@@ -6,7 +6,8 @@ const options = [
   { value: "in transit", label: "In Transit" },
   { value: "out for delivery", label: "Out for Delivery" },
   { value: "delivered", label: "Delivered" },
-  { value: "on hold", label: "On Hold" }
+  { value: "on hold", label: "On Hold" },
+  { value: "delayed", label: "Delayed" },
 ];
 
 const PackageStatus = ({ onSelect }) => {
