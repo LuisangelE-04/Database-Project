@@ -19,12 +19,11 @@ const AddDependent = () => {
     try {
       const payload = {
         payload: {
-          "employeeId": employeeID,
-          firstName,
-          lastName,
-          relationship,
-          dateOfBirth,
-          sex,
+          "firstName": firstName,
+          "lastName": lastName,
+          "relationship": relationship,
+          "DOB": dateOfBirth,
+          "sex": sex
         }
       };
 
