@@ -33,8 +33,12 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userType", "customer");
       
-      window.location.href = "/customer-dashboard";
+      if (!accessToken) {
+        console.error("Token is not available in the response.");
+        throw new Error("Login failed: Token is missing in the response.");
+      }
       alert("Login Successful");
+      navigate('/customer-dashboard');
       
     } catch (error) {
       if (error.response) {

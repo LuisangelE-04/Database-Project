@@ -12,7 +12,10 @@ const LandingPage = () => {
         <header className="landing-header">
           <h1>Welcome to ShipIt!</h1>
           <p>Your Reliable Post Office Service</p>
-          <Link to="/register" className="cta-button">Get Started</Link>
+          <div className="cta-buttons">
+            <Link to="/register" className="cta-button">Get Started</Link>
+            <Link to="/login" className="cta-button secondary">Sign In</Link>
+          </div>
         </header>
         <section className="landing-services">
           <h2>Our Services</h2>
@@ -29,9 +32,11 @@ const LandingPage = () => {
             </div>
             <div className="service-card">
               <img src="/tracking.jpg" alt="Tracking" className="service-image" />
-              <h3>Tracking</h3>
+              <Link to="/tracking">
+                <h3>Tracking</h3>
+              </Link>
               <p>Track your shipments in real-time. Stay updated with the location and status of your packages using our efficient tracking system.</p>
-            </div>
+            </div>  
           </div>
         </section>
       </div>
