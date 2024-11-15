@@ -4,27 +4,29 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
-import CreatePackage from "../components/CreatePackage";
 import "../css/Dashboard.css";
-import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const EmployeeDashboard = () => {
   const [firstName, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [postOffice, setPostOffice] = useState("");
-
+  const [employeeId, setEmployeeId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [position, setPosition] = useState("");
+  const [postOffice, setPostOffice] = useState({ branchId: "", phoneNumber: "" });
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       const accessToken = localStorage.getItem("accessToken");
-
+  
       if (!accessToken) {
         window.location.href = "/employee-login";
         return;
       }
-
+  
       const instance = axios.create({
         baseURL: BASE_URL,
         headers: {
@@ -32,17 +34,29 @@ const EmployeeDashboard = () => {
           authentication: accessToken
         },
       });
-
-      const response = await instance.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
-
-      setFirstName(response.data.firstName);
-      setLastName(response.data.lastName);
-      setEmail(response.data.email);
-      setPostOffice(response.data.postOffice.branchName);
+  
+      try {
+        const response = await instance.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
+  
+        console.log("Response data:", response.data);  
+        setFirstName(response.data.firstName || "N/A");
+        setLastName(response.data.lastName || "N/A");
+        setEmail(response.data.email || "N/A");
+        setEmployeeId(response.data.employeeId || "N/A");
+        setPhoneNumber(response.data.phoneNumber || "N/A");
+        setPosition(response.data.position || "N/A");
+  
+        const postOfficeData = response.data.postOffice;
+        setPostOffice({
+          branchId: postOfficeData?.branchId || "N/A",
+          phoneNumber: postOfficeData?.phoneNumber || "N/A",
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
-
+  
     fetchData();
-
   }, []);
 
   const handleCreatePackage = () => {
@@ -55,25 +69,38 @@ const EmployeeDashboard = () => {
   
   return (
     <>
-    <NavBar />
-    <div>
-      <h1>Hello, {firstName}!</h1>
+      <NavBar />
       <div className="dashboard-container">
+        <h1>Hello, {firstName} {lastName}!</h1>
+        <p><strong>Employee ID:</strong> {employeeId}</p>
+        <p><strong>Phone Number:</strong> {phoneNumber}</p>
+        <p><strong>Position:</strong> {position}</p>
+
+        <div className="post-office-details">
+          <h2>Post Office Details</h2>
+          <p><strong>Branch ID:</strong> {postOffice.branchId}</p>
+          <p><strong>Phone Number:</strong> {postOffice.phoneNumber}</p>
+        </div>
+
         <div className="dashboard-grid">
-          <div className="item-1">
-            <button onClick={handleUpdatePackage}>Update Package</button>
+          <div className="grid-item" onClick={() => navigate("/employee/create-package")}>
+            <h3>Create Package</h3>
           </div>
-          <div className="item-2">
-            <button onClick={handleCreatePackage}>Create Package</button>
+          
+          <div className="grid-item" onClick={() => navigate("/employee/update-profile")}>
+            <h3>Update Profile</h3>
           </div>
-          <div className="item-2">
-            3
+          
+          <div className="grid-item" onClick={() => navigate("/employee/update-package")}>
+            <h3>Update Package</h3>
           </div>
         </div>
-        <Logout />
+
+        <div className="logout-container">
+          <Logout />
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 };

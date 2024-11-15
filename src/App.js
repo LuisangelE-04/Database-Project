@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "./endpoints/AuthContext";
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -15,9 +15,12 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Services from './pages/Services';
 import Reports from './pages/Reports';
-import NavBar from "./components/NavBar";
-import CreatePackage from "./components/CreatePackage";
-import UpdatePackage from "./pages/UpdatePackage";
+import UpdatePackage from './pages/UpdatePackage'
+import UpdateProfile from './components/UpdateProfile';
+import CreatePackage from './components/CreatePackage';  // Import CreatePackage component
+
+
+
 
 function App() {
   return (
@@ -32,13 +35,12 @@ function App() {
         <Route path="/employee-register" element={<EmployeeRegister />} />
         <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
         <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+        <Route path="/update-package" element={<UpdatePackage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/manager-dashboard" element={<AdminDashboard />} />
-        <Route path="/create-package" element={<CreatePackage />} />
-        <Route path="/update-package" element={<UpdatePackage />} />
       </Routes>
     </AuthProvider>
   );

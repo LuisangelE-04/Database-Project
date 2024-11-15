@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import axios from "axios";
 import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
-import "../css/CreatePackage.css";
 
 const CreatePackage = () => {
   const [customerFirstName, setCustomerFirstName] = useState('');
