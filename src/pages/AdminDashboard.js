@@ -3,7 +3,10 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import LogOut from "../components/Logout";
+import EmployeeRegister from "../pages/EmployeeRegister";
+import Modal from 'react-modal';
 import "../css/CustomerDashboard.css"; // Reuse the CSS from CustomerDashboard
+import "../css/ModalStyles.css"; // Import additional styles for modal
 import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const AdminDashboard = () => {
@@ -13,6 +16,9 @@ const AdminDashboard = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [recentActivities, setRecentActivities] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [modalTitle, setModalTitle] = useState("");
 
   // Handlers for navigation or actions
   const handleManageUsers = () => {
@@ -24,7 +30,9 @@ const AdminDashboard = () => {
   };
 
   const handleRegisterEmployee = () => {
-    window.location.href = "/employee-register";
+    setModalTitle("Employee Registration");
+    setModalContent(<EmployeeRegister />);
+    setModalIsOpen(true);
   };
 
   const handleRegisterAdmin = () => {
@@ -36,8 +44,11 @@ const AdminDashboard = () => {
   };
 
   const handleSubmitSupplyShipment = () => {
-    // Navigate to the page or implement API call for submitting a new shipment
     window.location.href = "/submit-supply-shipment";
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -107,13 +118,23 @@ const AdminDashboard = () => {
           <button className="view-all" onClick={handleManageUsers}>Manage Users</button>
         </div>
 
-        <div className="admin-actions">
-          <h3>Admin Actions</h3>
-          <div className="action-buttons">
-            <button className="primary-action" onClick={handleRegisterEmployee}>Create/Register Employee</button>
-            <button className="primary-action" onClick={handleRegisterAdmin}>Create/Register Admin</button>
-            <button className="primary-action" onClick={handleCreateBranch}>Create New Branch</button>
-            <button className="primary-action" onClick={handleSubmitSupplyShipment}>Submit Shipment for New Supplies</button>
+        <div className="quick-actions">
+          <header>
+            <h3>Admin Actions</h3>
+          </header>
+          <div className="dashboard-grid">
+            <div className="item-1">
+              <button onClick={handleRegisterEmployee}>Create/Register Employee</button>
+            </div>
+            <div className="item-2">
+              <button onClick={handleRegisterAdmin}>Create/Register Admin</button>
+            </div>
+            <div className="item-3">
+              <button onClick={handleCreateBranch}>Create New Branch</button>
+            </div>
+            <div className="item-4">
+              <button onClick={handleSubmitSupplyShipment}>Submit Shipment for New Supplies</button>
+            </div>
           </div>
         </div>
 
@@ -121,6 +142,18 @@ const AdminDashboard = () => {
           <LogOut />
         </div>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Modal"
+        className="modal modal-scrollable"
+        overlayClassName="overlay"
+      >
+        <h2>{modalTitle}</h2>
+        {modalContent}
+        <button onClick={closeModal}>Close</button>
+      </Modal>
 
       <Footer />
     </>

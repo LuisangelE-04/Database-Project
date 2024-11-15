@@ -61,7 +61,6 @@ const EmployeeRegister = () => {
 
   return (
     <>
-      <NavBar />
       <div className="register-container">
         <h2>Employee Registration</h2>
         <form onSubmit={handleSubmit}>
@@ -146,7 +145,6 @@ const EmployeeRegister = () => {
           <button type="submit">Register</button>
         </form>
       </div>
-      <Footer />
     </>
   );
 };
