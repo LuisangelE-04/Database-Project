@@ -7,23 +7,16 @@ import EmployeeRegister from "../pages/EmployeeRegister";
 import Modal from 'react-modal';
 import "../css/CustomerDashboard.css"; // Reuse the CSS from CustomerDashboard
 import "../css/ModalStyles.css"; // Import additional styles for modal
-import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const AdminDashboard = () => {
   const [firstName, setFirstName] = useState("Admin");
   const [lastName, setLastName] = useState("User");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [recentActivities, setRecentActivities] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
-
-  // Handlers for navigation or actions
-  const handleManageUsers = () => {
-    window.location.href = "/manage-users";
-  };
 
   const handleAllReports = () => {
     window.location.href = "/reports";
@@ -35,16 +28,12 @@ const AdminDashboard = () => {
     setModalIsOpen(true);
   };
 
-  const handleRegisterAdmin = () => {
-    window.location.href = "/register-admin";
-  };
+  const handleViewProfile = () => {
+    window.location.href = "/employee-profile";
+  }
 
   const handleCreateBranch = () => {
     window.location.href = "/create-branch";
-  };
-
-  const handleSubmitSupplyShipment = () => {
-    window.location.href = "/submit-supply-shipment";
   };
 
   const closeModal = () => {
@@ -92,7 +81,7 @@ const AdminDashboard = () => {
         <header>
           <h1>Welcome back, {firstName}!</h1>
         </header>
-
+        {/*
         <div className="recent-activities">
           <h3>Recent Activities</h3>
           <div className="activity-list">
@@ -109,14 +98,14 @@ const AdminDashboard = () => {
             <button className="view-all" onClick={handleAllReports}>View All Reports</button>
           </div>
         </div>
-
+        */}
+        
         <div className="profile-info">
           <h3>Your Profile</h3>
           <p><strong>Full Name:</strong> {firstName} {lastName}</p>
           <p><strong>Email:</strong> {email}</p>
           <p><strong>Phone Number:</strong> {phoneNumber}</p>
-          <p><strong>Address:</strong> {address}</p>
-          <button className="view-all" onClick={handleManageUsers}>Manage Users</button>
+          <button className="view-all" onClick={handleViewProfile}>Edit Profile</button>
         </div>
 
         <div className="quick-actions">
@@ -125,16 +114,16 @@ const AdminDashboard = () => {
           </header>
           <div className="dashboard-grid">
             <div className="item-1">
-              <button onClick={handleRegisterEmployee}>Create/Register Employee</button>
+              <button onClick={handleRegisterEmployee}>Register Employee</button>
             </div>
             <div className="item-2">
-              <button onClick={handleRegisterAdmin}>Create/Register Admin</button>
+              <button onClick={handleAllReports}>View Reports</button>
             </div>
             <div className="item-3">
               <button onClick={handleCreateBranch}>Create New Branch</button>
             </div>
             <div className="item-4">
-              <button onClick={handleSubmitSupplyShipment}>Submit Shipment for New Supplies</button>
+              <button>TBD</button>
             </div>
           </div>
         </div>

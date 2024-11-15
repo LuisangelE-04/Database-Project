@@ -85,21 +85,3 @@
   color: #666;
   line-height: 1.6;
 }
-
-.cta-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 20px;
-}
-
-.cta-button.secondary {
-  background-color: #28a745;
-}
-
-.cta-button.secondary:hover {
-  background-color: #218838;
-}
-.service-card p {
-  text-decoration: none;
-}
