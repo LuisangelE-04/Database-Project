@@ -9,54 +9,49 @@ import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const EmployeeDashboard = () => {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [employeeId, setEmployeeId] = useState("");
+  const [lastname, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [position, setPosition] = useState("");
-  const [postOffice, setPostOffice] = useState({ branchId: "", phoneNumber: "" });
-  
+  const [email, setEmail] = useState("");
+  const [postOffice, setPostOffice] = useState("");
+  const [postOfficeNumber, setPostOfficeNumber] = useState("");
+  const [postOfficeEmail, setPostOfficeEmail] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       const accessToken = localStorage.getItem("accessToken");
-  
+
       if (!accessToken) {
-        window.location.href = "/employee-login";
+        window.location.href = "/empolyee-login";
         return;
       }
-  
+
       const instance = axios.create({
         baseURL: BASE_URL,
         headers: {
+          "ngrok-skip-browser-warning": "69420",
           "Content-Type": "application/json",
           authentication: accessToken
         },
       });
-  
-      try {
-        const response = await instance.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
-  
-        console.log("Response data:", response.data);  
-        setFirstName(response.data.firstName || "N/A");
-        setLastName(response.data.lastName || "N/A");
-        setEmail(response.data.email || "N/A");
-        setEmployeeId(response.data.employeeId || "N/A");
-        setPhoneNumber(response.data.phoneNumber || "N/A");
-        setPosition(response.data.position || "N/A");
-  
-        const postOfficeData = response.data.postOffice;
-        setPostOffice({
-          branchId: postOfficeData?.branchId || "N/A",
-          phoneNumber: postOfficeData?.phoneNumber || "N/A",
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+
+      const response = await instance.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
+      console.log(response.data);
+
+      setFirstName(response.data.firstName);
+      setLastName(response.data.lastName);
+      setPosition(response.data.position);
+      setEmail(response.data.email);
+      setPhoneNumber(response.data.phoneNumber);
+      setPostOffice(response.data.postOffice.branchName);
+      setPostOfficeNumber(response.data.postOffice.phoneNumber);
+      setPostOfficeEmail(response.data.postOffice.email);
     };
-  
+
     fetchData();
+
   }, []);
 
   const handleCreatePackage = () => {
@@ -66,41 +61,58 @@ const EmployeeDashboard = () => {
   const handleUpdatePackage = () => {
     navigate('/update-package');
   }
+
+  const handleViewProfile = () => {
+    navigate('/employee-profile');
+  }
   
   return (
     <>
-      <NavBar />
+    <NavBar />
+    <div>
+      <div className="branch-info">
+        <header>
+          <h1>{postOffice}</h1>
+          <h3>Contact Your Post Office</h3>
+          <p><strong>Phone: </strong>{postOfficeNumber} <strong>Email: </strong>{postOfficeEmail}</p>
+        </header>
+      </div>
+      <header>
+        <h1>Hello, {firstName}! | {position}</h1>
+      </header>
+
       <div className="dashboard-container">
-        <h1>Hello, {firstName} {lastName}!</h1>
-        <p><strong>Employee ID:</strong> {employeeId}</p>
-        <p><strong>Phone Number:</strong> {phoneNumber}</p>
-        <p><strong>Position:</strong> {position}</p>
-
-        <div className="post-office-details">
-          <h2>Post Office Details</h2>
-          <p><strong>Branch ID:</strong> {postOffice.branchId}</p>
-          <p><strong>Phone Number:</strong> {postOffice.phoneNumber}</p>
+        <div className="profile-info">
+          <header>
+            <h3>Account Information</h3>
+          </header>
+          <p><strong>Full Name: </strong>{firstName} {lastname}</p>
+          <p><strong>Position: </strong>{position}</p>
+          <p><strong>Your Email:  </strong>{email}</p>
+          <p><strong>Phone: </strong>{phoneNumber}</p>
+          <button className="view-all" onClick={handleViewProfile}>Edit Profile</button>
         </div>
 
-        <div className="dashboard-grid">
-          <div className="grid-item" onClick={() => navigate("/employee/create-package")}>
-            <h3>Create Package</h3>
-          </div>
-          
-          <div className="grid-item" onClick={() => navigate("/employee/update-profile")}>
-            <h3>Update Profile</h3>
-          </div>
-          
-          <div className="grid-item" onClick={() => navigate("/employee/update-package")}>
-            <h3>Update Package</h3>
+        <div className="quick-actions">
+          <header>
+            <h3>Quick Actions</h3>
+          </header>
+          <div className="dashboard-grid">
+            <div className="item-1">
+              <button onClick={handleUpdatePackage}>Update Package</button>
+            </div>
+            <div className="item-2">
+              <button onClick={handleCreatePackage}>Create Package</button>
+            </div>
           </div>
         </div>
 
-        <div className="logout-container">
+        <div className="logout">
           <Logout />
         </div>
       </div>
-      <Footer />
+    </div>
+    <Footer />
     </>
   );
 };

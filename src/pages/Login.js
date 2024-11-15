@@ -4,12 +4,14 @@ import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,12 +33,8 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userType", "customer");
       
-      if (!accessToken) {
-        console.error("Token is not available in the response.");
-        throw new Error("Login failed: Token is missing in the response.");
-      }
+      window.location.href = "/customer-dashboard";
       alert("Login Successful");
-      navigate('/customer-dashboard');
       
     } catch (error) {
       if (error.response) {
@@ -60,7 +58,6 @@ const Login = () => {
     <NavBar />
     <div className="login-container">
       <h2>Login</h2>
-      <p>Log in with Customer credentials</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -84,6 +81,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+    </div>
+    <div className="white-space">
+      
     </div>
     <Footer />
     </>

@@ -5,6 +5,7 @@ import { createENDPOINT, ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 import "../css/Register.css"
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
+import EmployeePositions from '../components/dropdowns/EmployeePositions';
 
 const EmployeeRegister = () => {
   const [firstName, setFirstName] = useState('');
@@ -111,11 +112,9 @@ const EmployeeRegister = () => {
           </div>
           <div className="form-group">
             <label>Position:</label>
-            <input
-              type="text"
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
-              required
+            <EmployeePositions 
+            onSelect={(value) => setPosition(value)}
+            required={true}
             />
           </div>
           <div className="form-group">

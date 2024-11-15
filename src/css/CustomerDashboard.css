@@ -1,185 +1,289 @@
-/* CustomerDashboard.css */
-
-/* General Dashboard Styles */
-.dashboard-container {
-  padding: 30px;
-  max-width: 1200px;
-  margin: auto;
-  background-color: #f5f5f5;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Slightly softer shadow */
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
 }
 
-/* Header Styles */
-.dashboard-title {
+body {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+}
+
+/* Ensure the main content takes up available space, allowing scrolling if necessary */
+.dashboard-container {
+  flex: 1; /* Allow content to take available space */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: auto;
+}
+
+header {
   text-align: center;
   margin-bottom: 40px;
-  font-size: 2.5rem;
-  color: #2c3e50; /* Darker color for better contrast */
-  font-family: 'Arial', sans-serif;
-  font-weight: bold;
 }
 
-/* Service Cards Container */
-.service-cards {
+.quick-actions, .shipment-overview, .recent-shipments, .profile-info, .settings-menu, .support-section {
+  margin-bottom: 40px;
+}
+
+/* Quick Actions */
+.quick-actions .action-buttons {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
-/* Card Styles */
-.card {
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-  color: #333;
+.quick-actions button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
-.card img {
-  width: 100%;
-  height: auto;
-  max-height: 150px; /* Restrict image height */
-  object-fit: contain;
+.quick-actions .primary-action {
+  background-color: #007bff;
+  color: white;
+}
+
+.quick-actions .secondary-action {
+  background-color: #f1f1f1;
+  color: #007bff;
+}
+
+/* Shipment Overview */
+.shipment-overview .overview-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.recent-shipments {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.shipment-overview .card h4 {
+  font-size: 1.3rem;
+}
+
+.shipment-overview .card p {
+  font-size: 1.1rem;
+}
+
+/* Recent Shipments */
+.recent-shipments .shipment-list {
+  margin-top: 20px;
+}
+
+.recent-shipments .shipment-item {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
   margin-bottom: 15px;
 }
 
-.card h3 {
-  font-size: 1.5rem;
-  color: #333;
+.recent-shipments .shipment-item p {
+  margin: 5px 0;
+}
+
+.recent-shipments .view-all {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.recent-shipments .view-all:hover {
+  background-color: #0056b3;
+}
+
+/* Profile Info */
+.profile-info {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.profile-info p {
   margin: 10px 0;
 }
 
-.card p {
-  font-size: 1rem;
-  color: #555;
+.profile-info strong {
+  color: #007bff;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Button Styles */
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff;
-  border-radius: 5px;
-  text-align: center;
-  transition: background-color 0.3s ease;
-}
-
-.btn-danger {
+/* Settings Menu */
+.settings-menu button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
   background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.btn-danger:hover {
+.settings-menu button:hover {
   background-color: #c82333;
 }
 
-/* Support Styles */
-a {
+.confirmation {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.confirm-delete {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-delete:hover {
+  background-color: #218838;
+}
+
+/* Support Section */
+.support-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.support-section button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.support-section button:hover {
+  background-color: #0056b3;
+}
+
+.support-section .support-link {
+  display: block;
+  margin-top: 15px;
   color: #007bff;
   text-decoration: none;
 }
 
-a:hover {
+.support-section .support-link:hover {
   text-decoration: underline;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 20px;
-  }
-
-  .dashboard-title {
-    font-size: 2rem;
-  }
-
-  .service-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    max-width: 100%;
-  }
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.logout button {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
 
-/*
-.dashboard-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-    background-color: #f9f9f9; 
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
-  }
-  
- 
-  .dashboard-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5rem; 
-    color: #333; /
-    font-family: 'Arial', sans-serif; 
-  }
-  
+.logout button:hover {
+  color: white;
+  background-color: #dc3545;
+}
 
-  .card {
-    border: none; 
-    border-radius: 8px;
-    margin-bottom: 20px; 
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-  }
-  
-  .card:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); 
-  }
-  
-  .btn {
-    border-radius: 4px; 
-  }
-  
-  .btn-danger {
-    background-color: #dc3545; 
-    border: none;
-  }
-  
-  .btn-danger:hover {
-    background-color: #c82333; 
-  }
-  
-  a {
-    color: #007bff; 
-    text-decoration: none; 
-  }
-  
-  a:hover {
-    text-decoration: underline; 
-  }
-  
+.logout button:focus {
+  color: white;
+  background-color: #dc3545;
+}
 
-  @media (max-width: 768px) {
-    .dashboard-container {
-      padding: 15px; 
-    }
-  
-    .dashboard-title {
-      font-size: 1.8rem; 
-    }
+.profile-info .view-all {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profile-info .view-all:hover {
+  background-color: #0056b3;
+}
+
+.quick-actions {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.quick-actions button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quick-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .quick-actions .action-buttons {
+    flex-direction: column;
+    gap: 10px;
   }
-  */
+
+  .shipment-overview .overview-cards {
+    flex-direction: column;
+  }
+
+  .shipment-overview .card {
+    max-width: 100%;
+  }
+
+  .recent-shipments .shipment-list {
+    margin-top: 20px;
+  }
+
+  .profile-info, .settings-menu, .support-section {
+    padding: 15px;
+  }
+
+  .confirmation {
+    margin-top: 15px;
+  }
+
+  .confirm-delete {
+    width: 100%;
+  }
+}

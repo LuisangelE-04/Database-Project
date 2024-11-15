@@ -1,60 +1,88 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+import { BASE_URL, ENDPOINTS } from "../endpoints/Endpoints";
 
 const TrackingReport = () => {
-  const [trackingData, setTrackingData] = useState([]);
+  const [reportData, setReportData] = useState([]);
+  const [postOffice, setPostOffice] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTrackingReport = async () => {
+  const fetchEmployeeReport = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/${ENDPOINTS.AUTH.MANAGER.TRACKING_REPORT}`);
-      setTrackingData(response.data);
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
+        window.location.href = "/login";
+        return;
+      }
+
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken,
+        },
+      });
+      const response = await instance.get(
+        `${BASE_URL}${ENDPOINTS.AUTH.MANAGER.TRACKING_REPORT}`
+      );
+      console.log(response.data);
+      setReportData(response.data.packages);
+      setPostOffice(response.data.postOfficeInfo);
+      setLoading(false);
     } catch (err) {
-      setError("Failed to fetch tracking report.");
-    } finally {
+      setError("Failed to fetch employee report.");
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchTrackingReport();
+    fetchEmployeeReport();
   }, []);
 
-  if (loading) return <p>Loading Tracking Report...</p>;
+  if (loading) return <p>Loading report...</p>;
   if (error) return <p>{error}</p>;
-
   return (
-    <div>
-      <h2>Tracking Report</h2>
-      <table>
-        <thead>
-          <tr>  
-            <th>Package ID</th>
-            <th>Weight</th>
-            <th>Dimensions</th>
-            <th>Shipping Date</th>
-            <th>Delivery Date</th>
-            <th>Status</th>
-            <th>Last Updated Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trackingData.map((tracking, index) => (
-            <tr key={index}>
-              <td>{tracking.packageId}</td>
-              <td>{tracking.weight}</td>
-              <td>{tracking.dimensions}</td>
-              <td>{new Date(tracking.shippingDate).toLocaleDateString()}</td>
-              <td>{tracking.deliveryDate ? new Date(tracking.deliveryDate).toLocaleDateString() : "Pending"}</td>
-              <td>{tracking.status}</td>
-              <td>{tracking.location}</td>
+    <>
+      <div className="dashboard-container">
+        <h2>Package Tracking Report</h2>
+        <table className="report-table">
+          <thead>
+            <tr>
+              <th>Package ID</th>
+              <th>Shipping Date</th>
+              <th>Delivery Date</th>
+              <th>Amount</th>
+              <th>Weight</th>
+              <th>Post Office Branch</th>
+              <th>Status</th>
+              <th>Location</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {reportData.map((entry) => {
+              const p = entry.packageInfo;
+              return entry.trackingHistory.map((v) => {
+                return (
+                  <tr key={p.packageId}>
+                    <td>{p.packageId}</td>
+                    <td>{new Date(p.shippingDate).toLocaleDateString()}</td>
+                    <td>{new Date(p.deliveryDate).toLocaleDateString()}</td>
+                    <td>{p.amount}</td>
+                    <td>{p.weight}</td>
+                    <td>{postOffice.branchName}</td>
+                    <td>{v.status}</td>
+                    <td>{v.location}</td>
+                  </tr>
+                );
+              });
+            })}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

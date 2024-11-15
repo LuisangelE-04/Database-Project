@@ -1,16 +1,19 @@
 import axios from 'axios';
 
+//export const BASE_URL = 'https://b5d6-129-7-0-8.ngrok-free.app/api/';
 export const BASE_URL = 'http://shipit.eastus.azurecontainer.io:4000/api/';
-// export const BASE_URL = 'https://27b0-76-142-23-132.ngrok-free.app/';
+
 export const ENDPOINTS = {
   AUTH: {
     EMPLOYEE: {
       LOGIN: 'auth/employee-login',
-      REGISTER: 'auth/employee-register'
+      REGISTER: 'auth/employee-register',
+      EDIT_PROFILE: 'employee/edit-profile',
     },
     CUSTOMER: {
       LOGIN: 'auth/customer-login',
       REGISTER: 'auth/customer-register',
+      EDIT_PROFILE: 'customer/edit-profile',
     },
     MANAGER: {
       EMPLOYEE_REGISTER: 'auth/employee-register',

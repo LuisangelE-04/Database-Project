@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
-import '../css/PackageUpdate.css';
+import '../css/UpdatePackage.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import PackageStatus from '../components/dropdowns/PackageStatus';
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -29,12 +30,15 @@ const UpdatePackage = () => {
             const instance = axios.create({
                 baseURL: BASE_URL,
                 headers: {
+                    "ngrok-skip-browser-warning": "69420",
                     "Content-Type": "application/json",
                     authentication: accessToken
                 },
             });
 
             const response = await instance.put(ENDPOINTS.AUTH.PACKAGE.UPDATE_PACKAGE, payload);
+
+            console.log(response.data);
             alert("Package Updated Successfully");
             window.location.href = "/employee-dashboard";
         } catch (error) {
@@ -62,13 +66,8 @@ const UpdatePackage = () => {
 
                 <div className="form-group">
                     <label htmlFor="status">Current Status</label>
-                    <input
-                        type="text"
-                        id="status"
-                        name="status"
-                        value={currentStatus}
-                        onChange={(e) => setStatus(e.target.value)}
-                        required
+                    <PackageStatus
+                    onSelect={(value) => setStatus(value)}
                     />
                 </div>
 
