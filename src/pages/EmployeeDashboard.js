@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Logout from "../components/Logout";
 import AddDependent from "../components/AddDependent";
+import UpdatePackage from "../components/UpdatePackage";
 import Modal from 'react-modal';
 import "../css/Dashboard.css";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
@@ -15,11 +16,12 @@ const EmployeeDashboard = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [position, setPosition] = useState("");
   const [email, setEmail] = useState("");
-  const [postOffice, setPostOffice] = useState("");
   const [employeeId, setEmployeeId] = useState("");
+  const [postOffice, setPostOffice] = useState("");
   const [postOfficeNumber, setPostOfficeNumber] = useState("");
   const [postOfficeEmail, setPostOfficeEmail] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
   const navigate = useNavigate();
 
@@ -64,7 +66,8 @@ const EmployeeDashboard = () => {
   }
 
   const handleUpdatePackage = () => {
-    navigate('/update-package');
+    setModalContent(<UpdatePackage />);
+    setModalIsOpen(true);
   }
 
   const handleViewProfile = () => {
@@ -72,6 +75,7 @@ const EmployeeDashboard = () => {
   }
 
   const handleAddDependent = () => {
+    setModalContent(<AddDependent />);
     setModalIsOpen(true);
   }
 
@@ -132,11 +136,11 @@ const EmployeeDashboard = () => {
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      contentLabel="Add Dependent"
+      contentLabel="Modal"
       className="modal"
       overlayClassName="overlay"
     >
-      <AddDependent />
+      {modalContent}
       <button onClick={closeModal}>Close</button>
     </Modal>
     <Footer />

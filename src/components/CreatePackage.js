@@ -214,20 +214,6 @@ const CreatePackage = () => {
               />
             </div>
 
-            {/* Remove this from from, amount will be calculated in backend */
-            <div className="form-group">
-              <label>Amount:</label>
-              <input
-                type="number"
-                step="0.1"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-              />
-            </div>
-            /* END OF SECTION TO REMOVE */
-            }
-
             <div className="form-group">
               <label>Shipping Method:</label>
               <ShipmentType
