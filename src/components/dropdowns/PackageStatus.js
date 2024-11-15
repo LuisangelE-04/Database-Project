@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../../css/Dropdown.css";
 
 const options = [
-  { value: "processing", label: "Processing" },
   { value: "received", label: "Recieved" },
   { value: "in transit", label: "In Transit" },
   { value: "out for delivery", label: "Out for Delivery" },
@@ -23,7 +22,6 @@ const PackageStatus = ({ onSelect }) => {
   return (
     <>
     <div className="dropdown-container">
-      <label htmlFor="packageDropdown">Choose Package Status</label>
       <select id="packageDropdown" value={selectedOption} onChange={handleChange}>
         <option value="">Select...</option>
         {options.map((option) => (

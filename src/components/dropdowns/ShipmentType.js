@@ -20,7 +20,7 @@ const ShipmentType = ({ onSelect }) => {
   return (
     <>
     <div>
-      <label htmlFor="shipmentType">Choose Shipment Type</label>
+      <label htmlFor="shipmentType">Shipping Method</label>
       <select id="shipmentType" value={selectedOption} onChange={handleChange}>
         <option value="">Select...</option>
         {options.map((option) => (

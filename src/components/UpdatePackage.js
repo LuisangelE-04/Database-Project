@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { createENDPOINT, ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
+import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
+import PackageStatus from "./dropdowns/PackageStatus";
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -17,11 +18,11 @@ const UpdatePackage = () => {
         try {
             const payload = {
                 payload: {
-                    packageId,
-                    status: currentStatus,
-                    shippingDate,
-                    deliveryDate,
-                    currentBranchId: currentBranchID,
+                    "packageId": packageId,
+                    "status": currentStatus,
+                    "shippingDate": shippingDate,
+                    "deliveryDate": deliveryDate,
+                    "currentBranchId": currentBranchID,
                 }
             };
             const accessToken = localStorage.getItem("accessToken");
@@ -33,7 +34,7 @@ const UpdatePackage = () => {
                 },
             });
 
-            const response = await instance.put(ENDPOINTS.AUTH.TRACKING.UPDATE_PACKAGE, payload);
+            const response = await instance.put(ENDPOINTS.AUTH.PACKAGE.UPDATE_PACKAGE, payload);
             console.log(response.data);
             alert("Package Updated Successfully");
             navigate('/employee-dashboard');
@@ -60,13 +61,8 @@ const UpdatePackage = () => {
 
                 <div className="form-group">
                     <label htmlFor="status">Current Status</label>
-                    <input
-                        type="text"
-                        id="status"
-                        name="status"
-                        value={currentStatus}
-                        onChange={(e) => setStatus(e.target.value)}
-                        required
+                    <PackageStatus 
+                    onSelect={setStatus}
                     />
                 </div>
 
@@ -78,7 +74,6 @@ const UpdatePackage = () => {
                         name="shippingDate"
                         value={shippingDate}
                         onChange={(e) => setShippingDate(e.target.value)}
-                        required
                     />
                 </div>
 
@@ -90,7 +85,6 @@ const UpdatePackage = () => {
                         name="deliveryDate"
                         value={deliveryDate}
                         onChange={(e) => setDeliveryDate(e.target.value)}
-                        required
                     />
                 </div>
 

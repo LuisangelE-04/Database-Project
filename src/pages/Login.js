@@ -25,10 +25,12 @@ const Login = () => {
       };
   
       const response = await createENDPOINT(ENDPOINTS.AUTH.CUSTOMER.LOGIN).post(payload);
-      if (!response|| response.status !== 200) {
+
+      if (!response || response.status !== 200) {
         console.error("Login response error:", response); 
         throw new Error(response.error);
       }
+
       const accessToken = response.data?.token || response.data;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userType", "customer");
@@ -38,7 +40,7 @@ const Login = () => {
         throw new Error("Login failed: Token is missing in the response.");
       }
       alert("Login Successful");
-      navigate('/customer-dashboard');
+      window.location.href = "/customer-dashboard";
       
     } catch (error) {
       if (error.response) {
