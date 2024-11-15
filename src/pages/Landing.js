@@ -14,7 +14,6 @@ const LandingPage = () => {
           <p>Your Reliable Post Office Service</p>
           <div className="cta-buttons">
             <Link to="/register" className="cta-button">Get Started</Link>
-            <Link to="/login" className="cta-button secondary">Sign In</Link>
           </div>
         </header>
         <section className="landing-services">

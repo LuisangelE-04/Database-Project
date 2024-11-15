@@ -91,7 +91,7 @@ const AdminDashboard = () => {
         <header>
           <h1>Welcome back, {firstName}!</h1>
         </header>
-
+        {/*
         <div className="recent-activities">
           <h3>Recent Activities</h3>
           <div className="activity-list">
@@ -108,7 +108,8 @@ const AdminDashboard = () => {
             <button className="view-all" onClick={handleAllReports}>View All Reports</button>
           </div>
         </div>
-
+        */}
+        
         <div className="profile-info">
           <h3>Your Profile</h3>
           <p><strong>Full Name:</strong> {firstName} {lastName}</p>
