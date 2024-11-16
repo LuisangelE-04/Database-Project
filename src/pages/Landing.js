@@ -5,6 +5,8 @@ import '../css/Landing.css';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
+  const userRole = localStorage.getItem("userType");
+
   return (
     <>
       <NavBar />
@@ -13,7 +15,11 @@ const LandingPage = () => {
           <h1>Welcome to ShipIt!</h1>
           <p>Your Reliable Post Office Service</p>
           <div className="cta-buttons">
-            <Link to="/register" className="cta-button">Get Started</Link>
+            {userRole ? (
+              <Link to={`/${userRole}-dashboard`} className="cta-button">Dashboard</Link>
+            ) : (
+              <Link to="/register" className="cta-button">Get Started</Link>
+            )}
           </div>
         </header>
         <section className="landing-services">

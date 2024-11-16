@@ -42,7 +42,7 @@ const UpdatePackage = () => {
       setShippingDate(response.data.shippingDate);
       setDeliveryDate(response.data.deliveryDate);
       setSuccessMessage("Package Updated Successfully");
-      alert(successMessage);
+      alert("Package Updated Successfully");
       setTimeout(() => {
         window.location.href = `/${userRole}-dashboard`;
       }, 0);
