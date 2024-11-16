@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ENDPOINTS, BASE_URL } from '../endpoints/Endpoints';
 import PackageStatus from "./dropdowns/PackageStatus";
+import '../css/UpdatePackage.css';
 
 const UpdatePackage = () => {
     const [packageId, setPackageId] = useState('');
@@ -10,6 +11,7 @@ const UpdatePackage = () => {
     const [shippingDate, setShippingDate] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [currentBranchID, setCurrentBranchID] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -35,11 +37,10 @@ const UpdatePackage = () => {
             });
 
             const response = await instance.put(ENDPOINTS.AUTH.PACKAGE.UPDATE_PACKAGE, payload);
-            console.log(response.data);
-            alert("Package Updated Successfully");
-            navigate('/employee-dashboard');
+            // console.log(response.data);
+            setSuccessMessage("Package Updated Successfully");
         } catch (error) {
-            alert("Error: " + error.message);
+            setSuccessMessage("Error: " + error.message);
         }
     };
 
@@ -100,6 +101,9 @@ const UpdatePackage = () => {
                     />
                 </div>
 
+                {successMessage && (
+                    <p className="success-message">{successMessage}</p>
+                )}
                 <button type="submit">Update Package</button>
             </form>
         </div>

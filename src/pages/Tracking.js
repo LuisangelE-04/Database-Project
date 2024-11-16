@@ -101,6 +101,7 @@ const Tracking = () => {
                 <p><strong>Package ID:</strong> {item.packageInfo?.packageId || 'N/A'}</p>
                 <p><strong>Amount:</strong> {item.packageInfo?.amount || 'N/A'}</p>
                 <p><strong>Shipping Method:</strong> {item.packageInfo?.shippingMethod || 'N/A'}</p>
+                <p><strong>Shipping Date:</strong> {item.packageInfo?.shippingDate.split("T")[0] || 'N/A'}</p>
                 <p><strong>Delivery Date:</strong> {item.packageInfo?.deliveryDate.split("T")[0] || 'N/A'}</p>
               </div>
               <div className='tracking-column'>

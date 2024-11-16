@@ -1,38 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
 import EmployeeReport from "../components/EmployeeReport";
 import TrackingReport from "../components/TrackingReport";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import CreatePackage from "../components/CreatePackage";
+import UpdatePackage from "../components/UpdatePackage";
+import Modal from "react-modal";
+import "../css/AdminReports.css";
 
 const AdminReports = () => {
-  const [currentReport, setCurrentReport] = React.useState("employee");
+  const [currentReport, setCurrentReport] = useState("employee");
+  const [isCreatePackageModalOpen, setCreatePackageModalOpen] = useState(false);
+  const [isUpdatePackageModalOpen, setUpdatePackageModalOpen] = useState(false);
   const branchId = 1;
 
-  const handleSwitchToEmployeeReport = (report) => {
+  const handleSwitchToEmployeeReport = () => {
     setCurrentReport("employee");
   };
 
-  const handleSwitchToTrackingReport = (report) => {
+  const handleSwitchToTrackingReport = () => {
     setCurrentReport("tracking");
+  };
+
+  const openCreatePackageModal = () => {
+    setCreatePackageModalOpen(true);
+  };
+
+  const closeCreatePackageModal = () => {
+    setCreatePackageModalOpen(false);
+  };
+
+  const openUpdatePackageModal = () => {
+    setUpdatePackageModalOpen(true);
+  };
+
+  const closeUpdatePackageModal = () => {
+    setUpdatePackageModalOpen(false);
   };
 
   return (
     <>
-    <NavBar />
-    <div className="report-container">
-      <button onClick={handleSwitchToEmployeeReport}>Employee Report</button>
-      <button onClick={handleSwitchToTrackingReport}>Tracking Report</button>
-      <div>
-        {currentReport === "employee" ? (
-          <EmployeeReport branchId={branchId} />
-        ) : (
-          <TrackingReport branchId={branchId} />
-        )}
+      <NavBar />
+      <div className="report-container">
+        <div className="admin-actions-container">
+          <button className="admin-action-btn" onClick={openCreatePackageModal}>
+            Create Package
+          </button>
+          <button className="admin-action-btn" onClick={openUpdatePackageModal}>
+            Update Package
+          </button>
+        </div>
+        <div className="reports-container">
+          <div className="report-buttons">
+            <button className="employee-report-btn" onClick={handleSwitchToEmployeeReport}>
+              Employee Report
+            </button>
+            <button className="tracking-report-btn" onClick={handleSwitchToTrackingReport}>
+              Tracking Report
+            </button>
+          </div>
+          <div className={currentReport === "employee" ? "employee-report" : "tracking-report"}>
+            {currentReport === "employee" ? (
+              <EmployeeReport branchId={branchId} />
+            ) : (
+              <TrackingReport branchId={branchId} />
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Modal
+        isOpen={isCreatePackageModalOpen}
+        onRequestClose={closeCreatePackageModal}
+        contentLabel="Create Package"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Create Package</h2>
+        <CreatePackage />
+        <button onClick={closeCreatePackageModal}>Close</button>
+      </Modal>
+      <Modal
+        isOpen={isUpdatePackageModalOpen}
+        onRequestClose={closeUpdatePackageModal}
+        contentLabel="Update Package"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Update Package</h2>
+        <UpdatePackage />
+        <button onClick={closeUpdatePackageModal}>Close</button>
+      </Modal>
+      <Footer />
     </>
-  )
+  );
 };
 
 export default AdminReports;
