@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "../css/Register.css"
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
@@ -170,6 +170,7 @@ const Register = () => {
           </div>
           <button type="submit">Register</button>
         </form>
+        <p>Already have an account? <Link to="/login">Login Here!</Link></p>
       </div>
       <Footer />
     </>

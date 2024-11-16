@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -91,9 +92,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>Don't have an account? <Link to="/register">Register Here!</Link></p>
     </div>
     <div className="white-space">
-      
     </div>
     <Footer />
     </>
