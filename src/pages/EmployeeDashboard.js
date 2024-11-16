@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Logout from "../components/Logout";
 import AddDependent from "../components/AddDependent";
 import UpdatePackage from "../components/UpdatePackage";
+import CreatePackage from "../components/CreatePackage"; // Import CreatePackage component
 import Modal from 'react-modal';
 import "../css/Dashboard.css";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
@@ -30,7 +31,7 @@ const EmployeeDashboard = () => {
       const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
-        window.location.href = "/empolyee-login";
+        window.location.href = "/employee-login";
         return;
       }
 
@@ -62,7 +63,8 @@ const EmployeeDashboard = () => {
   }, []);
 
   const handleCreatePackage = () => {
-    navigate('/create-package');
+    setModalContent(<CreatePackage />);
+    setModalIsOpen(true);
   }
 
   const handleUpdatePackage = () => {
@@ -139,6 +141,7 @@ const EmployeeDashboard = () => {
       contentLabel="Modal"
       className="modal"
       overlayClassName="overlay"
+      style={{ content: { maxHeight: '80vh', overflowY: 'auto' }}} // Add scroll styling to modal
     >
       {modalContent}
       <button onClick={closeModal}>Close</button>

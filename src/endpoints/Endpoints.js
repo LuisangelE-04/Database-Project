@@ -34,6 +34,7 @@ export const ENDPOINTS = {
       PROFILE: 'customer/profile',
       TRACKING: 'customer/tracking-history',
       CANCEL_PACKAGE: 'customer/cancel-package',
+      MAKE_PAYMENT: 'customer/make-payment',
     },
     EMPLOYEE: {
       PROFILE: 'employee/profile'

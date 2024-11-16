@@ -11,6 +11,9 @@ const Tracking = () => {
   const [trackingInfo, setTrackingInfo] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [packageIdToCancel, setPackageIdToCancel] = useState(null);
+  const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [paymentSuccessMessage, setPaymentSuccessMessage] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,8 +37,8 @@ const Tracking = () => {
         });
 
         const response = await instance.get(ENDPOINTS.GET.CUSTOMER.TRACKING);
-        setTrackingInfo(response.data);
         console.log(response.data);
+        setTrackingInfo(response.data);
       } catch (error) {
         console.error("Error fetching tracking information:", error);
         alert("Error fetching tracking information. Please try again.");
@@ -45,14 +48,24 @@ const Tracking = () => {
     fetchTracking();
   }, [navigate]);
 
-  const openModal = (packageId) => {
+  const openCancelModal = (packageId) => {
     setPackageIdToCancel(packageId);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeCancelModal = () => {
     setModalIsOpen(false);
     setPackageIdToCancel(null);
+  };
+
+  const openPaymentModal = (transaction) => {
+    setSelectedTransaction(transaction);
+    setPaymentModalIsOpen(true);
+  };
+
+  const closePaymentModal = () => {
+    setPaymentModalIsOpen(false);
+    setSelectedTransaction(null);
   };
 
   const handleCancelPackage = async () => {
@@ -62,8 +75,8 @@ const Tracking = () => {
   
     try {
       const body = {
-        "packageId" : packageIdToCancel,
-      }
+        "packageId": packageIdToCancel,
+      };
       const instance = axios.create({
         baseURL: BASE_URL,
         headers: {
@@ -73,20 +86,60 @@ const Tracking = () => {
         },
       });
   
-      // Including the packageId in the delete URL
       const response = await instance.patch(ENDPOINTS.GET.CUSTOMER.CANCEL_PACKAGE, body);
       alert(`Package ID ${packageIdToCancel} has been cancelled.`);
-      // Remove cancelled package from the tracking list
       setTrackingInfo(trackingInfo.filter(pkg => pkg.packageInfo.packageId !== packageIdToCancel));
       
-      closeModal();
+      closeCancelModal();
     } catch (error) {
       console.error("Error cancelling the package:", error);
-      console.log(error.message);
       alert("Failed to cancel the package. Please try again.");
     }
   };
-  
+
+  const handlePay = async () => {
+    if (!selectedTransaction) return;
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const body = {
+        "packageId": selectedTransaction.packageId
+      };
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken
+        },
+      });
+
+      const response = await instance.patch(ENDPOINTS.GET.CUSTOMER.MAKE_PAYMENT, body);
+      if (response.data) {
+        setPaymentSuccessMessage(`Payment completed successfully for Transaction ID: ${selectedTransaction.transactionId}`);
+        // Update the tracking information with the new payment status
+        setTrackingInfo(prevState =>
+          prevState.map(pkg => {
+            if (pkg.packageInfo.packageId === selectedTransaction.packageId) {
+              return {
+                ...pkg,
+                transactionStatus: pkg.transactionStatus.map(transaction => ({
+                  ...transaction,
+                  status: transaction.status === 'unpaid' ? 'paid' : transaction.status
+                }))
+              };
+            }
+            return pkg;
+          })
+        );
+      }
+      closePaymentModal();
+    } catch (error) {
+      console.error("Error making the payment:", error);
+      alert("Failed to make the payment. Please try again.");
+    }
+  };
 
   return (
     <div>
@@ -118,7 +171,7 @@ const Tracking = () => {
                 <p><strong>State:</strong> {item.senderAddress?.state || 'N/A'}</p>
                 <p><strong>Zipcode:</strong> {item.senderAddress?.zipcode || 'N/A'}</p>
               </div>
-              <div className='tracking-column tracking-actions'>
+              <div className='tracking-column'>
                 <h3>Tracking History</h3>
                 {item.trackingHistory.map((history, i) => (
                   <div key={i}>
@@ -127,18 +180,41 @@ const Tracking = () => {
                     <p><strong>Location:</strong> {history.location}</p>
                   </div>
                 ))}
-                <button className="cancel-package-btn" onClick={() => openModal(item.packageInfo?.packageId)}>
-                  Cancel Package
-                </button>
+              </div>
+              <div className='tracking-column tracking-actions'>
+                <h3>Payment Info</h3>
+                {item.transactionStatus.map((transaction, i) => (
+                  <div key={i}>
+                    <p><strong>Amount:</strong> {transaction.amount}</p>
+                    <p><strong>Date:</strong> {transaction.date}</p>
+                    <p><strong>Status:</strong> {transaction.status}</p>
+                    {transaction.status === 'unpaid' && (
+                      <button
+                        className="pay-btn"
+                        onClick={() => openPaymentModal({ ...transaction, packageId: item.packageInfo.packageId })}
+                      >
+                        Pay Now
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <div className="button-container">
+                  <button className="cancel-package-btn" onClick={() => openCancelModal(item.packageInfo?.packageId)}>
+                    Cancel Package
+                  </button>
+                </div>
               </div>
             </div>
           ))}
           {trackingInfo.length === 0 && <p>No packages found.</p>}
         </div>
+        {paymentSuccessMessage && (
+          <p className="payment-success-message">{paymentSuccessMessage}</p>
+        )}
       </div>
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        onRequestClose={closeCancelModal}
         contentLabel="Cancel Package Confirmation"
         className="modal"
         overlayClassName="overlay"
@@ -146,7 +222,21 @@ const Tracking = () => {
         <h2>Cancel Package</h2>
         <p>Are you sure you want to cancel Package ID {packageIdToCancel}?</p>
         <button onClick={handleCancelPackage}>Yes, Cancel Package</button>
-        <button onClick={closeModal}>No, Keep Package</button>
+        <button onClick={closeCancelModal}>No, Keep Package</button>
+      </Modal>
+      <Modal
+        isOpen={paymentModalIsOpen}
+        onRequestClose={closePaymentModal}
+        contentLabel="Payment Confirmation"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Confirm Payment</h2>
+        <p className="confirm-payment-text">
+          Are you sure you want to pay <strong>{selectedTransaction?.amount}</strong> for Package ID <strong>{selectedTransaction?.packageId}</strong>?
+        </p>
+        <button className="confirm-payment-btn-green" onClick={handlePay}>Yes, Make Payment</button>
+        <button className="confirm-payment-btn-red" onClick={closePaymentModal}>No, Cancel</button>
       </Modal>
       <Footer />
     </div>
