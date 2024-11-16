@@ -23,7 +23,7 @@ const CustomerDashboard = () => {
   const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProfile = async () => {
       const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
@@ -42,12 +42,7 @@ const CustomerDashboard = () => {
         });
 
         const profileResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.PROFILE);
-        const shipmentsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.TRACKING);
-        const notificationsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.NOTIFICATIONS);
-
         console.log(profileResponse.data);
-        console.log(shipmentsResponse.data);
-        console.log(notificationsResponse.data);
 
         setFirstName(profileResponse.data.firstName);
         setLastName(profileResponse.data.lastName);
@@ -55,18 +50,70 @@ const CustomerDashboard = () => {
         setStreet(profileResponse.data.address.street);
         setCity(profileResponse.data.address.city);
         setState(profileResponse.data.address.state);
-        setZip(profileResponse.data.address.zipCode);
-        setPhoneNumber(profileResponse.data.phoneNumber);
-        setRecentShipments(shipmentsResponse.data);
-        setNotifications(notificationsResponse.data);
-        setNotificationCount(notificationsResponse.data.length);
+        setZip(profileResponse.data.address.zip);
       } catch (error) {
-        console.error("Error fetching customer data:", error);
-        alert("Failed to load customer data. Please try again.");
+        console.error("Error fetching profile data:", error);
       }
     };
 
-    fetchData();
+    const fetchShipments = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
+        window.location.href = "/login";
+        return;
+      }
+
+      try {
+        const instance = axios.create({
+          baseURL: BASE_URL,
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+            "Content-Type": "application/json",
+            authentication: accessToken,
+          },
+        });
+
+        const shipmentsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.TRACKING);
+        console.log(shipmentsResponse.data);
+
+        setRecentShipments(shipmentsResponse.data);
+      } catch (error) {
+        console.error("Error fetching shipments data:", error);
+      }
+    };
+
+    const fetchNotifications = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (!accessToken) {
+        window.location.href = "/login";
+        return;
+      }
+
+      try {
+        const instance = axios.create({
+          baseURL: BASE_URL,
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+            "Content-Type": "application/json",
+            authentication: accessToken,
+          },
+        });
+
+        const notificationsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.NOTIFICATIONS);
+        console.log(notificationsResponse.data);
+
+        setNotifications(notificationsResponse.data);
+        setNotificationCount(notificationsResponse.data.length);
+      } catch (error) {
+        console.error("Error fetching notifications data:", error);
+      }
+    };
+
+    fetchProfile();
+    fetchShipments();
+    fetchNotifications();
   }, []);
 
   const openNotificationsModal = () => {

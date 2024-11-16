@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
 import PackageDropdown from "./dropdowns/PackageSize";
 import ShipmentType from "./dropdowns/ShipmentType";
 import "../css/CreatePackage.css";
@@ -19,6 +17,7 @@ const CreatePackage = () => {
   const [shippingDate, setShippingDate] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const userRole = localStorage.getItem("userType");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +69,9 @@ const CreatePackage = () => {
       const response = await instance.post(ENDPOINTS.AUTH.PACKAGE.CREATE_PACKAGE, payload);
       console.log(response.data);
       alert("Package Created Successfully");
-      // window.location.href = "/employee-dashboard";
+      setTimeout(() => {
+        window.location.href = `/${userRole}-dashboard`;
+      }, 0);
     } catch (error) {
       alert("Error: " + error);
       return;
