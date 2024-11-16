@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
 import PackageDropdown from "./dropdowns/PackageSize";
 import ShipmentType from "./dropdowns/ShipmentType";
 import "../css/CreatePackage.css";
@@ -12,15 +10,35 @@ const CreatePackage = () => {
   const [recipientStreet, setRecipientStreet] = useState('');
   const [recipientCity, setRecipientCity] = useState('');
   const [recipientState, setRecipientState] = useState('');
-  const [recipientZip, setRecipientZip] = useState(''); // "recipientZipcode": "77076" && "customerZipcode": "77076"
+  const [recipientZip, setRecipientZip] = useState('');
   const [weight, setWeight] = useState('');
   const [dimensions, setDimensions] = useState('');
   const [shippingMethod, setShippingMethod] = useState('');
   const [shippingDate, setShippingDate] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const userRole = localStorage.getItem("userType");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Get today's date
+    const today = new Date().toISOString().split("T")[0];
+
+    // Validate that the shipping date is not in the past
+    if (shippingDate < today) {
+      setErrorMessage("Shipping date cannot be in the past. Please select a valid date.");
+      return;
+    }
+
+    // Validate that the delivery date is not earlier than the shipping date
+    if (deliveryDate < shippingDate) {
+      setErrorMessage("Delivery date cannot be earlier than the shipping date. Please select a valid date.");
+      return;
+    }
+
+    // Clear any existing error message
+    setErrorMessage("");
 
     try {
       const payload = {
@@ -51,7 +69,9 @@ const CreatePackage = () => {
       const response = await instance.post(ENDPOINTS.AUTH.PACKAGE.CREATE_PACKAGE, payload);
       console.log(response.data);
       alert("Package Created Successfully");
-      window.location.href = "/employee-dashboard";
+      setTimeout(() => {
+        window.location.href = `/${userRole}-dashboard`;
+      }, 0);
     } catch (error) {
       alert("Error: " + error);
       return;
@@ -60,7 +80,6 @@ const CreatePackage = () => {
   
   return (
     <>
-      <NavBar />
       <div className="item-container">
         <h2>Enter Package Details</h2>
         <form onSubmit={handleSubmit} className="form-container">
@@ -158,10 +177,12 @@ const CreatePackage = () => {
               />
             </div>
           </div>
+          {errorMessage && (
+            <p className="error-message">{errorMessage}</p>
+          )}
           <button type="submit">Create Package</button>
         </form>
       </div>
-      <Footer /> 
     </>
   );
 };
