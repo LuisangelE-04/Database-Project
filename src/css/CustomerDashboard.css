@@ -316,3 +316,60 @@ header {
 .confirm-delete-btn:hover {
   background-color: #c82333; /* Darker red on hover */
 }
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.notification-item {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-support-btn {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-support-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.notification-count {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.notification-count.active {
+  color: red;
+  text-decoration: underline;
+}
+
+/* Modal Button Styling */
+.modal-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #007bff; /* Blue background for buttons */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

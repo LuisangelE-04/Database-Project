@@ -18,58 +18,9 @@ const CustomerDashboard = () => {
   const [zip, setZip] = useState("");
   const [recentShipments, setRecentShipments] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const handleViewAllShipments = () => {
-    window.location.href = "/tracking";
-  };
-
-  const handleViewSupport = () => {
-    window.location.href = "/contact";
-  };
-
-  const handleViewProfile = () => {
-    window.location.href = "/customer-profile";
-  };
-
-  const openDeleteModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeDeleteModal = () => {
-    setModalIsOpen(false);
-  };
-
-  const handleDeleteProfile = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (!accessToken) {
-      alert("No access token found, please log in.");
-      return;
-    }
-
-    try {
-      const instance = axios.create({
-        baseURL: BASE_URL,
-        headers: {
-          "ngrok-skip-browser-warning": "69420",
-          "Content-Type": "application/json",
-          authentication: accessToken,
-        },
-      });
-
-      // Send the DELETE request with the access token
-      const response = await instance.patch(ENDPOINTS.AUTH.CUSTOMER.DELETE_PROFILE);
-      
-      // Clear the access token and redirect to login
-      localStorage.removeItem("accessToken");
-      window.location.href = "/login"; 
-    } catch (error) {
-      console.error("Error deleting the account:", error);
-      alert("Failed to delete the account. Please try again.");
-    }
-
-    closeDeleteModal();
-  };
+  const [notificationsModalIsOpen, setNotificationsModalIsOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,21 +43,23 @@ const CustomerDashboard = () => {
 
         const profileResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.PROFILE);
         const shipmentsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.TRACKING);
+        const notificationsResponse = await instance.get(ENDPOINTS.GET.CUSTOMER.NOTIFICATIONS);
 
         console.log(profileResponse.data);
         console.log(shipmentsResponse.data);
+        console.log(notificationsResponse.data);
 
-        const profile = profileResponse.data;
-
-        setFirstName(profile.firstName);
-        setLastName(profile.lastName);
-        setEmail(profile.email);
-        setStreet(profile.address.street);
-        setCity(profile.address.city);
-        setState(profile.address.state);
-        setZip(profile.address.zipCode);
-        setPhoneNumber(profile.phoneNumber);
+        setFirstName(profileResponse.data.firstName);
+        setLastName(profileResponse.data.lastName);
+        setEmail(profileResponse.data.email);
+        setStreet(profileResponse.data.address.street);
+        setCity(profileResponse.data.address.city);
+        setState(profileResponse.data.address.state);
+        setZip(profileResponse.data.address.zipCode);
+        setPhoneNumber(profileResponse.data.phoneNumber);
         setRecentShipments(shipmentsResponse.data);
+        setNotifications(notificationsResponse.data);
+        setNotificationCount(notificationsResponse.data.length);
       } catch (error) {
         console.error("Error fetching customer data:", error);
         alert("Failed to load customer data. Please try again.");
@@ -116,12 +69,29 @@ const CustomerDashboard = () => {
     fetchData();
   }, []);
 
+  const openNotificationsModal = () => {
+    setNotificationsModalIsOpen(true);
+    setNotificationCount(0); // Reset notification count when modal is opened
+  };
+
+  const closeNotificationsModal = () => {
+    setNotificationsModalIsOpen(false);
+  };
+
   return (
     <>
       <NavBar />
       <div className="dashboard-container">
         <header>
           <h1>Welcome back, {firstName}!</h1>
+          <button className="notifications-button" onClick={openNotificationsModal}>
+            Notifications
+            {notificationCount > 0 && (
+              <span className={`notification-count ${notificationCount > 0 ? "active" : ""}`}>
+                ({notificationCount})
+              </span>
+            )}
+          </button>
         </header>
 
         <div className="recent-shipments">
@@ -147,7 +117,7 @@ const CustomerDashboard = () => {
             ) : (
               <p>No recent shipments.</p>
             )}
-            <button className="view-all" onClick={handleViewAllShipments}>
+            <button className="view-all" onClick={() => window.location.href = "/tracking"}>
               View Detailed Shipment Information
             </button>
           </div>
@@ -167,17 +137,17 @@ const CustomerDashboard = () => {
           <p>
             <strong>Address:</strong> {street}, {city} {state}, {zip}
           </p>
-          <button className="view-all" onClick={handleViewProfile}>
+          <button className="view-all" onClick={() => window.location.href = "/customer-profile"}>
             Edit Profile
           </button>
-          <button className="delete-profile-btn" onClick={openDeleteModal}>
+          <button className="delete-profile-btn" onClick={() => setModalIsOpen(true)}>
             Delete Profile
           </button>
         </div>
 
         <div className="support-section">
           <h3>Need Help?</h3>
-          <button className="contact-support" onClick={handleViewSupport}>
+          <button className="contact-support" onClick={() => window.location.href = "/contact"}>
             Contact Support
           </button>
         </div>
@@ -187,20 +157,53 @@ const CustomerDashboard = () => {
         </div>
       </div>
 
+      {/* Notifications Modal */}
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeDeleteModal}
-        contentLabel="Delete Account Confirmation"
+        isOpen={notificationsModalIsOpen}
+        onRequestClose={closeNotificationsModal}
+        contentLabel="Notifications"
         className="modal"
         overlayClassName="overlay"
       >
-        <h2>Delete Account</h2>
-        <p>Are you sure you want to delete your account? This action cannot be reversed.</p>
-        <button className="confirm-delete-btn" onClick={handleDeleteProfile}>
-          Yes, Delete My Account
-        </button>
-        <button onClick={closeDeleteModal}>No, Keep My Account</button>
+        <h2>Notifications</h2>
+        {notifications.length > 0 ? (
+          notifications.map((notification, index) => (
+            <div key={index} className="notification-item">
+              <p><strong>Message:</strong> {notification.message}</p>
+              <p><strong>Package ID:</strong> {notification.packageId}</p>
+              <p><strong>Date:</strong> {notification.createdAt}</p>
+            </div>
+          ))
+        ) : (
+          <p>No new notifications.</p>
+        )}
+        <button className="modal-button" onClick={() => window.location.href = "/contact"}>Contact Us</button>
+        <button onClick={closeNotificationsModal}>Close</button>
       </Modal>
+
+            <Modal
+        isOpen={notificationsModalIsOpen}
+        onRequestClose={closeNotificationsModal}
+        contentLabel="Notifications"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Notifications</h2>
+        {notifications.length > 0 ? (
+          notifications.map((notification, index) => (
+            <div key={index} className="notification-item">
+              <p><strong>Message:</strong> {notification.message}</p>
+              <p><strong>Package ID:</strong> {notification.packageId}</p>
+              <p><strong>Date:</strong> {notification.createdAt}</p>
+            </div>
+          ))
+        ) : (
+          <p>No new notifications.</p>
+        )}
+        <button className="modal-button" onClick={() => window.location.href = "/contact"}>Contact Us</button>
+        <button className="modal-button" onClick={closeNotificationsModal}>Close</button>
+      </Modal>
+
 
       <Footer />
     </>
