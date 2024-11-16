@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
@@ -9,6 +9,13 @@ import Footer from '../components/Footer';
 const ManagerLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const userRole = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (setIsLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  })
 
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();

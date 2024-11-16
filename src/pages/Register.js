@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../css/Register.css"
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useAuth } from "../endpoints/AuthContext";
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -15,9 +16,15 @@ const Register = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZip] = useState('');
-
-  const [signupSuccess, setSignupSuccess] = useState(false);
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
+  const userRole = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (setIsLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();

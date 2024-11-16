@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { createENDPOINT, ENDPOINTS } from '../endpoints/Endpoints';
@@ -12,6 +12,13 @@ const EmployeeLogin = () => {
 
   const navigate = useNavigate();
   const { setIsLoggedIn } = useAuth();
+  const userRole = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (setIsLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  })
 
   const handleLogin = async (e) => {
     e.preventDefault();

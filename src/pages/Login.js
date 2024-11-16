@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -6,10 +6,16 @@ import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
+  const { setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const userRole = localStorage.getItem("userType");
 
-  const { setIsLoggedIn } = useAuth();
+  useEffect(() => {
+    if (setIsLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
