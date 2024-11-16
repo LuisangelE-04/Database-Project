@@ -51,6 +51,7 @@ const CustomerDashboard = () => {
         setCity(profileResponse.data.address.city);
         setState(profileResponse.data.address.state);
         setZip(profileResponse.data.address.zip);
+        setPhoneNumber(profileResponse.data.phoneNumber);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -125,6 +126,45 @@ const CustomerDashboard = () => {
     setNotificationsModalIsOpen(false);
   };
 
+  const handleDeleteProfile = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      alert("You must be logged in to delete your profile.");
+      window.location.href = "/login";
+    }
+
+    try {
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken,
+        },
+      });
+      // Send the DELETE request with the access token
+      const response = await instance.patch(ENDPOINTS.AUTH.CUSTOMER.DELETE_PROFILE);
+      
+      // Clear the access token and redirect to login
+      localStorage.removeItem("accessToken");
+      window.location.href = "/login"; 
+    } catch (error) {
+      console.error("Error deleting the account:", error);
+      alert("Failed to delete the account. Please try again.");
+    }
+
+    closeDeleteModal();
+  };
+
+  const openDeleteModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setModalIsOpen(false);
+  }
+
   return (
     <>
       <NavBar />
@@ -179,7 +219,7 @@ const CustomerDashboard = () => {
             <strong>Email:</strong> {email}
           </p>
           <p>
-            <strong>Phone Number:</strong> {phoneNumber}
+            <strong>Phone Number:</strong> {phoneNumber || "N/A"}
           </p>
           <p>
             <strong>Address:</strong> {street}, {city} {state}, {zip}
@@ -187,7 +227,7 @@ const CustomerDashboard = () => {
           <button className="view-all" onClick={() => window.location.href = "/customer-profile"}>
             Edit Profile
           </button>
-          <button className="delete-profile-btn" onClick={() => setModalIsOpen(true)}>
+          <button className="delete-profile-btn" onClick={openDeleteModal}>
             Delete Profile
           </button>
         </div>
@@ -251,6 +291,20 @@ const CustomerDashboard = () => {
         <button className="modal-button" onClick={closeNotificationsModal}>Close</button>
       </Modal>
 
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeDeleteModal}
+        contentLabel="Delete Account Confirmation"
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Delete Account</h2>
+        <p>Are you sure you want to delete your account? This action cannot be reversed.</p>
+        <button className="confirm-delete-btn" onClick={handleDeleteProfile}>
+          Yes, Delete My Account
+        </button>
+        <button onClick={closeDeleteModal}>No, Keep My Account</button>
+      </Modal>
 
       <Footer />
     </>
