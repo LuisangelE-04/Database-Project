@@ -9,16 +9,14 @@ import Footer from '../components/Footer';
 const ManagerLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { isLoggedin, setIsLoggedIn } = useAuth();
   const userRole = localStorage.getItem("userType");
 
   useEffect(() => {
-    if (setIsLoggedIn) {
+    if (isLoggedin) {
       window.location.href = `/${userRole}-dashboard`;
     }
-  })
-
-  const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
+  }, [isLoggedin, userRole]);
 
   const handleLogin = async (e) => {
     e.preventDefault();

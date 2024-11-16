@@ -6,16 +6,16 @@ import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userRole = localStorage.getItem("userType");
 
   useEffect(() => {
-    if (setIsLoggedIn) {
+    if (isLoggedIn) {
       window.location.href = `/${userRole}-dashboard`;
     }
-  })
+  }, [isLoggedIn, userRole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -11,14 +11,14 @@ const EmployeeLogin = () => {
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const userRole = localStorage.getItem("userType");
 
   useEffect(() => {
-    if (setIsLoggedIn) {
+    if (isLoggedIn) {
       window.location.href = `/${userRole}-dashboard`;
     }
-  })
+  }, [isLoggedIn, userRole]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
