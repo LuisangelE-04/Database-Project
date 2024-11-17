@@ -25,7 +25,7 @@ const LandingPage = () => {
         <section className="landing-services">
           <h2>Our Services</h2>
           <div className="services-grid">
-            <div cla  ssName="service-card">
+            <div className="service-card">
               <img src="/delivery.jpg" alt="Mail Delivery" className="service-image" />
               <h3>Mail Delivery</h3>
               <p>Fast and secure mail delivery to your doorstep. Whether it’s local or nationwide, our reliable service ensures your mail gets to where it needs to be on time.</p>
