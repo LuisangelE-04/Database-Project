@@ -14,6 +14,12 @@ const AdminReports = () => {
   const [isUpdatePackageModalOpen, setUpdatePackageModalOpen] = useState(false);
   const branchId = 1;
 
+  const Reports = () => {
+    const [view, setView] = (event) => {
+      setView(event.target.value);
+    }
+  }
+
   const handleSwitchToEmployeeReport = () => {
     setCurrentReport("employee");
   };
@@ -42,20 +48,12 @@ const AdminReports = () => {
     <>
       <NavBar />
       <div className="report-container">
-        <div className="admin-actions-container">
-          <button className="admin-action-btn" onClick={openCreatePackageModal}>
-            Create Package
-          </button>
-          <button className="admin-action-btn" onClick={openUpdatePackageModal}>
-            Update Package
-          </button>
-        </div>
         <div className="reports-container">
           <div className="report-buttons">
-            <button className="employee-report-btn" onClick={handleSwitchToEmployeeReport}>
+            <button className="report-btn" onClick={handleSwitchToEmployeeReport}>
               Employee Report
             </button>
-            <button className="tracking-report-btn" onClick={handleSwitchToTrackingReport}>
+            <button className="report-btn" onClick={handleSwitchToTrackingReport}>
               Tracking Report
             </button>
           </div>
@@ -68,6 +66,9 @@ const AdminReports = () => {
           </div>
         </div>
       </div>
+
+
+      {/* Move this to another file */}
       <Modal
         isOpen={isCreatePackageModalOpen}
         onRequestClose={closeCreatePackageModal}

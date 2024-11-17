@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import '../css/Login.css';
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -6,10 +7,16 @@ import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
 import { useAuth } from "../endpoints/AuthContext";
 
 const Login = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const userRole = localStorage.getItem("userType");
 
-  const { setIsLoggedIn } = useAuth();
+  useEffect(() => {
+    if (isLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  }, [isLoggedIn, userRole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,9 +92,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>Don't have an account? <Link to="/register">Register Here!</Link></p>
     </div>
     <div className="white-space">
-      
     </div>
     <Footer />
     </>

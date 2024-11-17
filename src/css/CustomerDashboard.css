@@ -34,10 +34,10 @@ header {
 .quick-actions .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
 }
 
 .quick-actions button {
+  margin-top: 0px;
   padding: 10px 20px;
   font-size: 1rem;
   cursor: pointer;

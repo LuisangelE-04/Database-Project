@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import "../css/Register.css"
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { createENDPOINT, ENDPOINTS } from "../endpoints/Endpoints";
+import { useAuth } from "../endpoints/AuthContext";
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -15,9 +16,15 @@ const Register = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipcode, setZip] = useState('');
-
-  const [signupSuccess, setSignupSuccess] = useState(false);
   const navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const userRole = localStorage.getItem("userType");
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      window.location.href = `/${userRole}-dashboard`;
+    }
+  }, [isLoggedIn, userRole]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,6 +170,7 @@ const Register = () => {
           </div>
           <button type="submit">Register</button>
         </form>
+        <p>Already have an account? <Link to="/login">Login Here!</Link></p>
       </div>
       <Footer />
     </>
