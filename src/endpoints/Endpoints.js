@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const BASE_URL = 'http://localhost:4000/api/';
+//export const BASE_URL = 'http://localhost:4000/api/';
 // export const BASE_URL = 'https://e630-76-142-23-132.ngrok-free.app/';
-//export const BASE_URL = 'http://shipit.eastus.azurecontainer.io:4000/api/';
+export const BASE_URL = 'http://ec2-34-207-133-247.compute-1.amazonaws.com:8080/api/';
 
 export const ENDPOINTS = {
   AUTH: {
