@@ -4,8 +4,8 @@ const options = [
   { value: 'Manager', label: 'Branch Manager' },
   { value: 'Inventory', label: 'Inventory Specialist' },
   { value: 'Accountant', label: 'Accountant' },
-  { value: 'Service', label: 'Customer Service' },
-  { value: 'Service', label: 'Front Desk' }
+  { value: 'Customer Service', label: 'Customer Service' },
+  { value: 'Front Desk', label: 'Front Desk' }
 ];
 
 const EmployeePositionsDropdown = ({ onSelect }) => {

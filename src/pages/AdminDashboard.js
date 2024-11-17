@@ -14,6 +14,9 @@ const AdminDashboard = () => {
   const [lastName, setLastName] = useState("User");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [position, setPosition] = useState("");
+  const [postOffice, setPostOffice] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState("");
@@ -64,6 +67,9 @@ const AdminDashboard = () => {
       setLastName(response.data.lastName);
       setEmail(response.data.email);
       setPhoneNumber(response.data.phoneNumber);
+      setEmployeeId(response.data.employeeId);
+      setPosition(response.data.position);
+      setPostOffice(response.data.postOffice.branchName);
       console.log(response.data);
       // Uncomment and update the line below to fetch recent activities if needed
       // const response2 = await profile.get(ENDPOINTS.GET.EMPLOYEE.RECENT_ACTIVITIES);
@@ -79,6 +85,7 @@ const AdminDashboard = () => {
       <div className="dashboard-container">
         <header>
           <h1>Welcome back, {firstName}!</h1>
+          <h2>{position} | {postOffice}</h2>
         </header>
         {/*
         <div className="recent-activities">
@@ -104,6 +111,7 @@ const AdminDashboard = () => {
           <p><strong>Full Name:</strong> {firstName} {lastName}</p>
           <p><strong>Email:</strong> {email}</p>
           <p><strong>Phone Number:</strong> {phoneNumber}</p>
+          <p><strong>ID:</strong> {employeeId}</p>
           <button className="view-all" onClick={handleViewProfile}>Edit Profile</button>
         </div>
 
