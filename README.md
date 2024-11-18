@@ -9,7 +9,7 @@ Welcome to the ShipIt frontend appliation! This project is a React-based web app
 - [Dependencies](#dependencies)
 - [Available Scripts](#available-scripts)
 - [Learn More About React](#learn-more)
-- [Containerize the Build](#containerize)
+- [Containerize With Docker](#containerizing-the-application-with-docker)
 
 ## Getting Started
 
@@ -157,9 +157,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-## Containerize
-
-### Containerizing the Application with Docker
+## Containerizing the Application with Docker
 
 To containerize the ShipIt frontend application using Docker, follow these steps:
 
