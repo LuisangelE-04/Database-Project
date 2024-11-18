@@ -21,7 +21,8 @@ export const ENDPOINTS = {
     MANAGER: {
       EMPLOYEE_REGISTER: 'auth/employee-register',
       EMPLOYEE_REPORT: 'employee/employees-and-logins-report',
-      TRACKING_REPORT: 'employee/package-and-tracking-report'
+      TRACKING_REPORT: 'employee/package-and-tracking-report',
+      DEPENDENT_REPORT: 'employee//employee-and-dependents-report',
     },
     PACKAGE: {
       GET_HISTORY: 'customer/tracking-history',
@@ -38,7 +39,8 @@ export const ENDPOINTS = {
       NOTIFICATIONS: 'customer/notifications',
     },
     EMPLOYEE: {
-      PROFILE: 'employee/profile'
+      PROFILE: 'employee/profile',
+      NEED_EMPLOYEE_ACTION: 'employee/need-employee-action',
     }
   }
 };

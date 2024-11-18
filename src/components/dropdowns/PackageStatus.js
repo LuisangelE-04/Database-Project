@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../css/Dropdown.css";
 
 const options = [
-  { value: "received", label: "Recieved" },
+  { value: "received", label: "Received" },
   { value: "in transit", label: "In Transit" },
   { value: "out for delivery", label: "Out for Delivery" },
   { value: "delivered", label: "Delivered" },
