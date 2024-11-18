@@ -22,7 +22,7 @@ export const ENDPOINTS = {
       EMPLOYEE_REGISTER: 'auth/employee-register',
       EMPLOYEE_REPORT: 'employee/employees-and-logins-report',
       TRACKING_REPORT: 'employee/package-and-tracking-report',
-      DEPENDENT_REPORT: 'employee//employee-and-dependents-report',
+      DEPENDENT_REPORT: 'employee/employee-and-dependents-report',
     },
     PACKAGE: {
       GET_HISTORY: 'customer/tracking-history',

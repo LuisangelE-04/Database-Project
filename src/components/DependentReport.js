@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
+import "../css/Report.css";
 
 const DependentReport = () => {
   const [reportData, setReportData] = useState([]);
@@ -27,15 +28,18 @@ const DependentReport = () => {
           authentication: accessToken,
         },
       });
+
       const response = await instance.get(
         `${BASE_URL}${ENDPOINTS.AUTH.MANAGER.DEPENDENT_REPORT}`
       );
+
       console.log(response.data);
       setReportData(response.data);
       setReportDataCopy(response.data);
       setLoading(false);
-    } catch (err) {
-      setError("Failed to fetch employee report.");
+      
+    } catch (error) {
+      setError("Failed to fetch dependent report.");
       setLoading(false);
     }
   };
@@ -91,7 +95,7 @@ const DependentReport = () => {
             type="text"
             value={searchTerm}
             onChange={handleInputChange}
-            placeholder="enter search term..."
+            placeholder="Enter search term..."
           />
         </div>
       </div>
