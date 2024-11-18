@@ -159,7 +159,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Containerize
 
-## Containerizing the Application with Docker
+### Containerizing the Application with Docker
 
 To containerize the ShipIt frontend application using Docker, follow these steps:
 
