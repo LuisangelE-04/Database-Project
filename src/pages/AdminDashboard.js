@@ -4,9 +4,10 @@ import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import LogOut from "../components/Logout";
 import EmployeeRegister from "../pages/EmployeeRegister";
+import CreateBranch from "../components/CreateBranch"; // Import CreateBranch
 import Modal from 'react-modal';
-import "../css/CustomerDashboard.css"; // Reuse the CSS from CustomerDashboard
-import "../css/ModalStyles.css"; // Import additional styles for modal
+import "../css/CustomerDashboard.css";
+import "../css/ModalStyles.css";
 import { ENDPOINTS, BASE_URL } from "../endpoints/Endpoints";
 
 const AdminDashboard = () => {
@@ -33,10 +34,13 @@ const AdminDashboard = () => {
 
   const handleViewProfile = () => {
     window.location.href = "/employee-profile";
-  }
+  };
 
+  // Updated function to open the CreateBranch form in the modal
   const handleCreateBranch = () => {
-    window.location.href = "/create-branch";
+    setModalTitle("Create New Branch");
+    setModalContent(<CreateBranch />);
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
@@ -61,7 +65,7 @@ const AdminDashboard = () => {
         },
       });
 
-      const response = await profile.get(ENDPOINTS.GET.EMPLOYEE.PROFILE); // Replace with the correct endpoint
+      const response = await profile.get(ENDPOINTS.GET.EMPLOYEE.PROFILE);
 
       setFirstName(response.data.firstName);
       setLastName(response.data.lastName);
@@ -71,9 +75,6 @@ const AdminDashboard = () => {
       setPosition(response.data.position);
       setPostOffice(response.data.postOffice.branchName);
       console.log(response.data);
-      // Uncomment and update the line below to fetch recent activities if needed
-      // const response2 = await profile.get(ENDPOINTS.GET.EMPLOYEE.RECENT_ACTIVITIES);
-      // setRecentActivities(response2.data);
     };
 
     fetchData();
@@ -87,24 +88,6 @@ const AdminDashboard = () => {
           <h1>Welcome back, {firstName}!</h1>
           <h2>{position} | {postOffice}</h2>
         </header>
-        {/*
-        <div className="recent-activities">
-          <h3>Recent Activities</h3>
-          <div className="activity-list">
-            {recentActivities.length > 0 ? (
-              recentActivities.map((activity, index) => (
-                <div key={index} className="activity-item">
-                  <p><strong>Activity:</strong> {activity.description || "N/A"}</p>
-                  <p><strong>Date:</strong> {activity.date || "N/A"}</p>
-                </div>
-              ))
-            ) : (
-              <p>No recent activities.</p>
-            )}
-            <button className="view-all" onClick={handleAllReports}>View All Reports</button>
-          </div>
-        </div>
-        */}
         
         <div className="profile-info">
           <h3>Your Profile</h3>
@@ -129,9 +112,6 @@ const AdminDashboard = () => {
             <div className="item-3">
               <button onClick={handleCreateBranch}>Create New Branch</button>
             </div>
-            <div className="item-4">
-              <button>TBD</button>
-            </div>
           </div>
         </div>
 
@@ -149,7 +129,7 @@ const AdminDashboard = () => {
       >
         <h2>{modalTitle}</h2>
         {modalContent}
-        <button onClick={closeModal}>Close</button>
+        <button onClick={closeModal} className="modal-button">Close</button>
       </Modal>
 
       <Footer />
