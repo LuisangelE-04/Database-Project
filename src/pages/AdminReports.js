@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import EmployeeReport from "../components/EmployeeReport";
 import TrackingReport from "../components/TrackingReport";
+import DependentReport from "../components/DependentReport";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import CreatePackage from "../components/CreatePackage";
@@ -14,18 +15,16 @@ const AdminReports = () => {
   const [isUpdatePackageModalOpen, setUpdatePackageModalOpen] = useState(false);
   const branchId = 1;
 
-  const Reports = () => {
-    const [view, setView] = (event) => {
-      setView(event.target.value);
-    }
-  }
-
   const handleSwitchToEmployeeReport = () => {
     setCurrentReport("employee");
   };
 
   const handleSwitchToTrackingReport = () => {
     setCurrentReport("tracking");
+  };
+
+  const handleSwitchToDependentReport = () => {
+    setCurrentReport("dependent");
   };
 
   const openCreatePackageModal = () => {
@@ -50,47 +49,32 @@ const AdminReports = () => {
       <div className="report-container">
         <div className="reports-container">
           <div className="report-buttons">
-            <button className="report-btn" onClick={handleSwitchToEmployeeReport}>
+            <button
+              className={`report-btn ${currentReport === "employee" ? "active" : ""}`}
+              onClick={handleSwitchToEmployeeReport}
+            >
               Employee Report
             </button>
-            <button className="report-btn" onClick={handleSwitchToTrackingReport}>
+            <button
+              className={`report-btn ${currentReport === "tracking" ? "active" : ""}`}
+              onClick={handleSwitchToTrackingReport}
+            >
               Tracking Report
             </button>
+            <button
+              className={`report-btn ${currentReport === "dependent" ? "active" : ""}`}
+              onClick={handleSwitchToDependentReport}
+            >
+              Dependent Report
+            </button>
           </div>
-          <div className={currentReport === "employee" ? "employee-report" : "tracking-report"}>
-            {currentReport === "employee" ? (
-              <EmployeeReport branchId={branchId} />
-            ) : (
-              <TrackingReport branchId={branchId} />
-            )}
+          <div className="report-content">
+            {currentReport === "employee" && <EmployeeReport branchId={branchId} />}
+            {currentReport === "tracking" && <TrackingReport branchId={branchId} />}
+            {currentReport === "dependent" && <DependentReport branchId={branchId} />}
           </div>
         </div>
       </div>
-
-
-      {/* Move this to another file */}
-      <Modal
-        isOpen={isCreatePackageModalOpen}
-        onRequestClose={closeCreatePackageModal}
-        contentLabel="Create Package"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <h2>Create Package</h2>
-        <CreatePackage />
-        <button onClick={closeCreatePackageModal}>Close</button>
-      </Modal>
-      <Modal
-        isOpen={isUpdatePackageModalOpen}
-        onRequestClose={closeUpdatePackageModal}
-        contentLabel="Update Package"
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <h2>Update Package</h2>
-        <UpdatePackage />
-        <button onClick={closeUpdatePackageModal}>Close</button>
-      </Modal>
       <Footer />
     </>
   );
