@@ -1,136 +1,148 @@
+import React, { useState } from 'react';
 import axios from "axios";
 import { BASE_URL, ENDPOINTS } from "../endpoints/Endpoints";
-import { useState } from "react";
+import "../css/CreatePackage.css";
 
 const CreateBranch = () => {
-  const [formValue, setFormValue] = useState({
-    branchName: "",
-    email: "",
-    phoneNumber: "",
-    street: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  });
+  const [branchName, setBranchName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const userRole = localStorage.getItem("userType");
 
-  const handleInputChange = (event) => {
-    setFormValue((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      window.location.href = "/login";
-      return;
-    }
+    // Clear any existing error message
+    setErrorMessage("");
 
-    const instance = axios.create({
-      baseURL: BASE_URL,
-      headers: {
-        "ngrok-skip-browser-warning": "69420",
-        "Content-Type": "application/json",
-        authentication: accessToken,
-      },
-    });
+    try {
+      const payload = {
+        payload: {
+          "branchName": branchName,
+          "email": email,
+          "phoneNumber": phoneNumber,
+          "street": street,
+          "city": city,
+          "state": state,
+          "zipcode": zipcode
+        }
+      };
 
-    const response = await instance.post(
-      ENDPOINTS.POST.MANAGER.CREATE_POST_OFFICE,
-      formValue
-    );
-
-    if (response.data?.branchId) {
-      alert("Branch created!");
-      setFormValue({
-        branchName: "",
-        email: "",
-        phoneNumber: "",
-        street: "",
-        city: "",
-        state: "",
-        zipCode: "",
+      const accessToken = localStorage.getItem("accessToken");
+      const instance = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+          "ngrok-skip-browser-warning": "69420",
+          "Content-Type": "application/json",
+          authentication: accessToken
+        },
       });
+
+      const response = await instance.post(ENDPOINTS.POST.MANAGER.CREATE_POST_OFFICE, payload);
+      console.log(response.data);
+
+      if (response.data?.branchId) {
+        alert("Branch Created Successfully");
+        // Redirect after successful creation
+        setTimeout(() => {
+          window.location.href = `/${userRole}-dashboard`;
+        }, 0);
+      }
+
+      // Reset form values
+      /*setBranchName("");
+      setEmail("");
+      setPhoneNumber("");
+      setStreet("");
+      setCity("");
+      setState("");
+      setZipCode("");*/
+
+    } catch (error) {
+      setErrorMessage("Error: " + error.response?.data?.message || "An error occurred while creating the branch");
+      return;
     }
   };
 
   return (
     <>
-      <div className="dashboard-container">
-        <form onSubmit={handleFormSubmit}>
-          <div>
-            <label>Branch Name</label>
-            <input
-              type="text"
-              value={formValue.branchName}
-              onChange={handleInputChange}
-              required
-              name="branchName"
-            />
+      <div className="item-container">
+        <h2>Create New Branch</h2>
+        <form onSubmit={handleSubmit} className="form-container">
+          <div className="form-section">
+            <div className="form-group">
+              <label>Branch Name:</label>
+              <input
+                type="text"
+                value={branchName}
+                onChange={(e) => setBranchName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone Number:</label>
+              <input
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Street:</label>
+              <input
+                type="text"
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>City:</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>State:</label>
+              <input
+                type="text"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Zip Code:</label>
+              <input
+                type="text"
+                value={zipcode}
+                onChange={(e) => setZipCode(e.target.value)}
+                required
+              />
+            </div>
           </div>
-          <div>
-            <label>Email</label>
-            <input
-              type="email"
-              value={formValue.email}
-              onChange={handleInputChange}
-              required
-              name="email"
-            />
-          </div>
-          <div>
-            <label>Phone Number</label>
-            <input
-              type="text"
-              value={formValue.phoneNumber}
-              onChange={handleInputChange}
-              required
-              name="phoneNumber"
-            />
-          </div>
-          <div>
-            <label>Street</label>
-            <input
-              type="text"
-              value={formValue.street}
-              onChange={handleInputChange}
-              required
-              name="street"
-            />
-          </div>
-          <div>
-            <label>City</label>
-            <input
-              type="text"
-              value={formValue.city}
-              onChange={handleInputChange}
-              required
-              name="city"
-            />
-          </div>
-          <div>
-            <label>State</label>
-            <input
-              type="text"
-              value={formValue.state}
-              onChange={handleInputChange}
-              required
-              name="state"
-            />
-          </div>
-          <div>
-            <label>Zip Code</label>
-            <input
-              type="text"
-              value={formValue.zipCode}
-              onChange={handleInputChange}
-              required
-              name="zipCode"
-            />
-          </div>
-          <button type="submit">Create Post Office</button>
+          {errorMessage && (
+            <p className="error-message">{errorMessage}</p>
+          )}
+          <button type="submit">Create Branch</button>
         </form>
       </div>
     </>

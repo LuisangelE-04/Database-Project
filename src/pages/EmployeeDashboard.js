@@ -228,7 +228,7 @@ const EmployeeDashboard = () => {
                 checked={resolvedNotifications[index] || false}
                 onChange={() => handleResolveChange(index)}
               />
-              {resolvedNotifications[index] && <span className="resolved-text"> Resolved</span>}
+              {resolvedNotifications[index] && <span className="resolved-text"> Noted</span>}
             </div>
           ))
         ) : (
