@@ -5,15 +5,18 @@ import "../css/Report.css";
 
 const DependentReport = () => {
   const [reportData, setReportData] = useState([]);
+  const [reportDataCopy, setReportDataCopy] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterValue, setFilterValue] = useState("employee-id");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchDependentReport = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
       if (!accessToken) {
-        window.location.href = "/";
+        window.location.href = "/login";
         return;
       }
 
@@ -32,10 +35,11 @@ const DependentReport = () => {
 
       console.log(response.data);
       setReportData(response.data);
+      setReportDataCopy(response.data);
       setLoading(false);
       
     } catch (error) {
-      setError("Failed to fetch employee report.");
+      setError("Failed to fetch dependent report.");
       setLoading(false);
     }
   };
@@ -44,45 +48,92 @@ const DependentReport = () => {
     fetchDependentReport();
   }, []);
 
+  const handleFilterChange = (event) => {
+    setFilterValue(event.target.value);
+    setReportData(reportDataCopy);
+    setSearchTerm("");
+  };
+
+  const handleInputChange = (event) => {
+    const val = event.target.value?.trim();
+    setSearchTerm(event.target.value);
+    if (!val) {
+      setReportData(reportDataCopy);
+      return;
+    }
+    if (filterValue === "employee-id") {
+      setReportData(() => {
+        return reportDataCopy.filter((entry) =>
+          entry.employeeInfo.employeeId.toString().includes(val)
+        );
+      });
+    } else {
+      setReportData(() => {
+        return reportDataCopy.filter((entry) => {
+          const name =
+            entry.employeeInfo.firstName + " " + entry.employeeInfo.lastName;
+          return name.toLowerCase().includes(val.toLowerCase());
+        });
+      });
+    }
+  };
+
   if (loading) return <p>Loading report...</p>;
   if (error) return <p>{error}</p>;
-  
+
   return (
-    <>
-      <div className="dashboard-container">
-        <h2>Employee Dependent Report</h2>
-        <table className="report-table">
-          <thead>
-            <tr>
-              <th>Employee ID</th>
-              <th>Employee Name</th>
-              <th>Phone Number</th>
-              <th>Dependent ID</th>
-              <th>Dependent Name</th>
-              <th>Dependent Relationship</th>
-              <th>Dependent DOB</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportData.map((data) => {
-              return data.dependents.map((entry) => {
-                return (
-                  <tr key={data.employeeInfo.employeeId}>
-                    <td>{data.employeeInfo.employeeId}</td>
-                    <td>{data.employeeInfo.firstName} {data.employeeInfo.lastName}</td>
-                    <td>{data.employeeInfo.phoneNumber}</td>
-                    <td>{entry.dependentId}</td>
-                    <td>{entry.firstName} {entry.lastName}</td>
-                    <td>{entry.relationship}</td>
-                    <td>{entry.dateOfBirth}</td>
-                  </tr>
-                );
-              });
-            })}
-          </tbody>
-        </table>
+    <div>
+      <h2>Employee Dependent Report</h2>
+      <div className="filter-wrapper">
+        <div className="filter-container">
+          <label>Filter by</label>
+          <select value={filterValue} onChange={handleFilterChange}>
+            <option value="employee-id">Employee ID</option>
+            <option value="employee-name">Employee Name</option>
+          </select>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleInputChange}
+            placeholder="Enter search term..."
+          />
+        </div>
       </div>
-    </>
+      <table className="report-table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Phone Number</th>
+            <th>Dependent ID</th>
+            <th>Dependent Name</th>
+            <th>Dependent Relationship</th>
+            <th>Dependent DOB</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reportData.map((entry) => {
+            return entry.dependents.map((v) => {
+              return (
+                <tr key={entry.employeeInfo.employeeId + v.dependentId}>
+                  <td>{entry.employeeInfo.employeeId}</td>
+                  <td>
+                    {entry.employeeInfo.firstName} {entry.employeeInfo.lastName}
+                  </td>
+                  <td>{entry.employeeInfo.phoneNumber}</td>
+                  <td>{v.dependentId}</td>
+                  <td>
+                    {v.firstName} {v.lastName}
+                  </td>
+                  <td>{v.relationship}</td>
+                  <td>{v.dateOfBirth}</td>
+                </tr>
+              );
+            });
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
