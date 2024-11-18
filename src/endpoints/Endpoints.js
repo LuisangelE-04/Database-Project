@@ -39,8 +39,14 @@ export const ENDPOINTS = {
       NOTIFICATIONS: 'customer/notifications',
     },
     EMPLOYEE: {
-      PROFILE: 'employee/profile'
+      PROFILE: 'employee/profile',
+      NEED_EMPLOYEE_ACTION: 'employee/need-employee-action',
     }
+  },
+  POST: {
+    MANAGER: {
+      CREATE_POST_OFFICE: 'employee/create-post-office',
+    },
   }
 };
 

@@ -12,9 +12,22 @@ const UpdatePackage = () => {
     const [shippingDate, setShippingDate] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [currentBranchID, setCurrentBranchID] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const today = new Date().toISOString().split("T")[0];
+        
+        if (shippingDate < today) {
+            setErrorMessage("Shipping date cannot be in the past. Please select a valid date.");
+            return;
+          }
+      
+          // Validate that the delivery date is not earlier than the shipping date
+          if (deliveryDate < shippingDate) {
+            setErrorMessage("Delivery date cannot be earlier than the shipping date. Please select a valid date.");
+            return;
+          }
 
         try {
             const payload = {
